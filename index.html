@@ -1522,6 +1522,260 @@
       .hero-bar-value{min-width:45px!important;font-size:10px!important;}
     }
 
+
+/* ============================================================
+   V18 FINAL FIX — AVATAR MODAL / PROFILE MUSIC / BGM / BG GUARD
+   ============================================================ */
+
+/* Modal must cover ALL sticky/fixed UI, including the 5-tab header. */
+.modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10050 !important;
+  background: rgba(0, 0, 0, 0.86) !important;
+  backdrop-filter: blur(8px) brightness(0.48) !important;
+  -webkit-backdrop-filter: blur(8px) brightness(0.48) !important;
+  isolation: isolate !important;
+}
+
+.modal-backdrop[style*="display: flex"] {
+  z-index: 10050 !important;
+}
+
+.modal-content {
+  position: relative !important;
+  z-index: 10051 !important;
+}
+
+/* Profile: ONE music icon only. */
+.music-dock {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 30px !important;
+  min-width: 30px !important;
+  max-width: 30px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 1px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.music-icon-btn,
+.music-icon-btn:hover,
+.music-icon-btn:focus,
+.music-icon-btn:active {
+  width: 28px !important;
+  min-width: 28px !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+  transform: none !important;
+}
+
+.profile-current-song-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+
+/* No old profile popup can appear anymore. */
+#musicSettingsPopover,
+.music-settings-popover {
+  display: none !important;
+}
+
+/* System BGM controls */
+.system-bgm-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.system-bgm-control-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto minmax(220px,.8fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.system-bgm-current {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.system-control-label {
+  color: var(--subtext);
+  font-size: 11px;
+}
+
+.system-bgm-title {
+  color: var(--cyan);
+  font-size: 13px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.system-bgm-toggle {
+  min-width: 120px;
+}
+
+.system-bgm-volume {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.system-volume-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.system-volume-row input[type="range"] {
+  width: 100%;
+  min-width: 0;
+}
+
+#ytVolLabel {
+  min-width: 38px;
+  text-align: right;
+  color: var(--cyan);
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.system-bgm-change {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.system-bgm-change-row {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap: 8px;
+}
+
+.system-bgm-change-row input {
+  width: 100%;
+}
+
+/* Background layers can NEVER become the browser's interactive target. */
+#bgImageLayer,
+#bgVideo,
+.bg-image-layer,
+.video-bg {
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-drag: none !important;
+  touch-action: none !important;
+  cursor: default !important;
+}
+
+#bgVideo {
+  controls: none;
+}
+
+/* Transparent interaction shield sits above the background, below the app. */
+#backgroundTouchShield {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  background: transparent !important;
+  pointer-events: auto !important;
+  touch-action: pan-y !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+.container {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Fixed/sticky app chrome remains above the background shield. */
+.tabs-wrapper,
+.desktop-group-nav,
+.mobile-bottom-nav,
+.modal-backdrop,
+.site-dialog-backdrop,
+.music-settings-popover {
+  z-index: 300 !important;
+}
+
+.modal-backdrop { z-index: 10050 !important; }
+.site-dialog-backdrop { z-index: 10000 !important; }
+
+@media (max-width: 768px) {
+  .hero-title-row {
+    gap: 4px !important;
+  }
+
+  .music-dock {
+    width: 30px !important;
+    min-width: 30px !important;
+    max-width: 30px !important;
+  }
+
+  .music-icon-btn {
+    width: 28px !important;
+    min-width: 28px !important;
+    height: 26px !important;
+    min-height: 26px !important;
+    font-size: 12px !important;
+  }
+
+  .system-bgm-control-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .system-bgm-current {
+    grid-column: 1 / -1;
+  }
+
+  .system-bgm-volume {
+    grid-column: 1 / -1;
+  }
+
+  .system-bgm-toggle {
+    width: 100%;
+  }
+
+  .system-bgm-change-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .modal-backdrop {
+    padding: 12px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .modal-content {
+    width: min(94vw, 500px) !important;
+    max-width: 94vw !important;
+    max-height: 88vh !important;
+    padding: 16px !important;
+    border-radius: 16px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1532,6 +1786,7 @@
   <div id="bgImageLayer" class="bg-image-layer" aria-hidden="true"></div>
   <video id="bgVideo" class="video-bg" autoplay muted loop playsinline></video>
   <div class="overlay-dim"></div>
+  <div id="backgroundTouchShield" aria-hidden="true"></div>
 
   <!-- Hidden YouTube Container -->
   <div id="ytPlayerContainer" style="display:none;"></div>
@@ -1563,35 +1818,11 @@
             <span class="hero-level-badge">Lv.<b id="lvlDisplay">1</b></span>
           </div>
 
-          <div class="music-dock" id="musicDock">
-            <div class="music-dock-main">
-              <button class="secondary music-play-btn" onclick="toggleYtMusic()" id="ytPlayBtn" aria-label="Phát hoặc tạm dừng nhạc" type="button">
-                <span id="ytPlayGlyph">▶️</span><span class="music-play-label">Phát</span>
-              </button>
-              <div class="music-current" title="Bài hát đang phát">
-                <span class="music-current-icon">🎵</span>
-                <span class="music-current-prefix">Đang phát:</span>
-                <b id="currentSongTitle">Rừng Ma Thuật</b>
-              </div>
-            </div>
-
-            <button class="secondary music-settings-btn" id="musicSettingsBtn" onclick="toggleMusicSettings(event)" aria-label="Cài đặt nhạc" type="button">⚙️</button>
-
-            <div class="music-settings-popover" id="musicSettingsPopover" aria-hidden="true">
-              <div class="music-popover-title">
-                <span>🎵 Điều khiển BGM</span>
-                <button class="secondary" type="button" onclick="toggleMusicSettings(event)" aria-label="Đóng">✕</button>
-              </div>
-              <div class="music-popover-row">
-                <input type="text" id="ytUrlInput" placeholder="Dán link YouTube..." aria-label="Link YouTube">
-                <button class="secondary" type="button" onclick="loadNewYtSong()">Tải Nhạc</button>
-              </div>
-              <div class="music-popover-volume">
-                <span>🔊</span>
-                <input type="range" id="ytVolumeSlider" min="0" max="100" value="50" oninput="setYtVolume(this.value)">
-                <span id="ytVolLabel">50%</span>
-              </div>
-            </div>
+          <div class="music-dock" id="musicDock" aria-label="Điều khiển BGM">
+            <button class="secondary music-icon-btn" onclick="toggleYtMusic()" id="ytPlayBtn" aria-label="Bật hoặc tắt nhạc" type="button">
+              <span id="ytPlayGlyph">▶️</span>
+            </button>
+            <span id="currentSongTitle" class="profile-current-song-hidden" aria-hidden="true">Rừng Ma Thuật</span>
           </div>
         </div>
 
@@ -2214,6 +2445,33 @@
           </div>
         </div>
 
+<div class="card system-bgm-card">
+          <div class="system-bgm-control-grid">
+            <div class="system-bgm-current">
+              <span class="system-control-label">🎵 Đang phát</span>
+              <b id="systemCurrentSongTitle" class="system-bgm-title">Rừng Ma Thuật</b>
+            </div>
+
+            <button class="secondary system-bgm-toggle" id="systemBgmToggleBtn" type="button" onclick="toggleYtMusic()">▶️ Bật nhạc</button>
+
+            <label class="system-bgm-volume">
+              <span class="system-control-label">🔊 Âm lượng</span>
+              <span class="system-volume-row">
+                <input type="range" id="ytVolumeSlider" min="0" max="100" value="50" oninput="setYtVolume(this.value)">
+                <span id="ytVolLabel">50%</span>
+              </span>
+            </label>
+          </div>
+
+          <div class="system-bgm-change">
+            <label class="system-control-label" for="ytUrlInput">Đổi nhạc bằng link YouTube</label>
+            <div class="system-bgm-change-row">
+              <input type="text" id="ytUrlInput" placeholder="Dán link YouTube..." aria-label="Link YouTube">
+              <button class="secondary" type="button" onclick="loadNewYtSong()">Đổi Nhạc</button>
+            </div>
+          </div>
+        </div>
+
 <div class="card">
           <h3>
             <span>🎵 Danh Sách Thánh Nhạc BGM (YouTube Iframe)</span>
@@ -2504,6 +2762,11 @@
         events: {
           'onReady': () => {
             ytPlayer.setVolume(state.ytVolume || 50);
+            const slider=document.getElementById('ytVolumeSlider');
+            const label=document.getElementById('ytVolLabel');
+            if(slider) slider.value=state.ytVolume || 50;
+            if(label) label.innerText=`${state.ytVolume || 50}%`;
+            updateMusicPlayButton();
           }
         }
       });
@@ -2528,8 +2791,13 @@
       const vid = extractYouTubeId(url);
       if (!vid) return openSiteDialog('Link YouTube không hợp lệ','Hãy kiểm tra lại URL YouTube rồi thử lại.','⚠️','ÂM THANH');
       state.ytbLink = url;
-      document.getElementById('currentSongTitle').innerText = title || "Đang phát";
-      document.getElementById('ytUrlInput').value = url;
+      const songName = title || "Đang phát";
+      const currentSong = document.getElementById('currentSongTitle');
+      const systemSong = document.getElementById('systemCurrentSongTitle');
+      if(currentSong) currentSong.innerText = songName;
+      if(systemSong) systemSong.innerText = songName;
+      const urlInput = document.getElementById('ytUrlInput');
+      if(urlInput) urlInput.value = url;
       saveState();
       closeMusicSettings();
       if (ytPlayer && ytPlayer.loadVideoById) {
@@ -2545,7 +2813,10 @@
       const vid = extractYouTubeId(url);
       if (!vid) return openSiteDialog('Link YouTube không hợp lệ','Hãy kiểm tra lại URL YouTube rồi thử lại.','⚠️','ÂM THANH');
       state.ytbLink = url;
-      document.getElementById('currentSongTitle').innerText = "Tùy chỉnh";
+      const currentSong = document.getElementById('currentSongTitle');
+      const systemSong = document.getElementById('systemCurrentSongTitle');
+      if(currentSong) currentSong.innerText = "Tùy chỉnh";
+      if(systemSong) systemSong.innerText = "Tùy chỉnh";
       saveState();
       closeMusicSettings();
       if (ytPlayer && ytPlayer.loadVideoById) {
@@ -2557,7 +2828,10 @@
 
     function setYtVolume(val) {
       state.ytVolume = parseInt(val);
-      document.getElementById('ytVolLabel').innerText = `${val}%`;
+      const label=document.getElementById('ytVolLabel');
+      if(label) label.innerText = `${val}%`;
+      const slider=document.getElementById('ytVolumeSlider');
+      if(slider && String(slider.value)!==String(val)) slider.value=val;
       if (ytPlayer && ytPlayer.setVolume) ytPlayer.setVolume(state.ytVolume);
       saveState();
     }
@@ -4393,12 +4667,15 @@
 
     function updateMusicPlayButton(){
       const btn=document.getElementById('ytPlayBtn');
-      if(!btn) return;
-      const glyph=btn.querySelector('#ytPlayGlyph');
+      const glyph=btn ? btn.querySelector('#ytPlayGlyph') : null;
       if(glyph) glyph.textContent=isYtPlaying?'⏸️':'▶️';
-      const label=btn.querySelector('.music-play-label');
-      if(label) label.textContent=isYtPlaying?'Dừng':'Phát';
-      btn.setAttribute('aria-label',isYtPlaying?'Tạm dừng BGM':'Phát BGM');
+      if(btn) btn.setAttribute('aria-label',isYtPlaying?'Tắt nhạc':'Bật nhạc');
+
+      const sysBtn=document.getElementById('systemBgmToggleBtn');
+      if(sysBtn){
+        sysBtn.textContent=isYtPlaying?'⏸️ Tắt nhạc':'▶️ Bật nhạc';
+        sysBtn.setAttribute('aria-label',isYtPlaying?'Tắt BGM':'Bật BGM');
+      }
     }
 
     function toggleMusicSettings(event){
@@ -4415,6 +4692,19 @@
     function closeMusicSettings(){
       const panel=document.getElementById('musicSettingsPopover');
       if(panel){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');}
+    }
+
+    function syncSystemMusicSettings(){
+      const title=document.getElementById('systemCurrentSongTitle');
+      const legacyTitle=document.getElementById('currentSongTitle');
+      const name=(legacyTitle && legacyTitle.innerText.trim()) || 'Rừng Ma Thuật';
+      if(title) title.innerText=name;
+      const slider=document.getElementById('ytVolumeSlider');
+      const label=document.getElementById('ytVolLabel');
+      const volume=Number(state.ytVolume ?? 50);
+      if(slider) slider.value=volume;
+      if(label) label.innerText=`${volume}%`;
+      updateMusicPlayButton();
     }
 
     function showTaskRewardInfo(){
@@ -5002,5 +5292,35 @@
     });
     updateMusicPlayButton();
   </script>
+
+<script>
+/* V18 mobile background interaction guard: prevent video/image background from ever opening native viewers. */
+(function(){
+  function stopBackgroundActivation(e){
+    const t=e && e.target;
+    if(!t) return;
+    if(t.id==='bgVideo' || t.id==='bgImageLayer' || (t.closest && t.closest('#bgVideo, #bgImageLayer'))){
+      e.preventDefault();
+      e.stopPropagation();
+      if(typeof e.stopImmediatePropagation==='function') e.stopImmediatePropagation();
+      return false;
+    }
+  }
+  ['pointerdown','pointerup','mousedown','mouseup','click','dblclick','contextmenu','touchstart','touchend'].forEach(type=>{
+    document.addEventListener(type, stopBackgroundActivation, true);
+  });
+
+  const video=document.getElementById('bgVideo');
+  if(video){
+    video.controls=false;
+    video.setAttribute('controlslist','nodownload nofullscreen noremoteplayback');
+    video.setAttribute('disablepictureinpicture','');
+    video.setAttribute('playsinline','');
+    video.setAttribute('webkit-playsinline','');
+    video.setAttribute('aria-hidden','true');
+  }
+})();
+</script>
+
 </body>
 </html>
