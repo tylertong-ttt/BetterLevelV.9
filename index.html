@@ -750,7 +750,32 @@
       .task-summary,.analytics-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.task-summary-card,.analytics-card{padding:8px}.analytics-card .value{font-size:18px}.calendar-cell{min-height:54px;padding:4px}.calendar-count{font-size:13px}.calendar-date{font-size:10px}.month-nav strong{font-size:12px}.month-nav button{padding:6px 8px}
       #tab-tasks .card>div:first-of-type{display:grid!important;grid-template-columns:1fr;gap:7px!important}.deadline-input-wrap{width:100%;min-width:0!important;display:grid!important;grid-template-columns:1fr auto auto auto}.deadline-input-wrap .deadline-helper{grid-column:1/-1}.deadline-input-wrap #taskDeadline{width:100%;min-width:0!important}.deadline-quick{padding:6px 7px!important}
       .gear-grid{grid-template-columns:repeat(3,1fr);gap:6px}.gear-slot{min-height:122px;padding:7px 3px}.gear-img-large{width:54px;height:54px}.slot-level-badge{font-size:9px}.enhance-grid{grid-template-columns:1fr}.rune-slots{grid-template-columns:repeat(2,1fr)}.rune-inventory{grid-template-columns:repeat(2,minmax(0,1fr))}.rune-slot{min-height:84px}.rune-name{font-size:10px}.rune-buff{font-size:9px}
-      .map-viewport{height:auto;min-height:430px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;gap:8px;padding:12px}.boss-figure{order:1;min-height:170px;display:flex;align-items:flex-end;justify-content:center}.boss-img{max-height:170px;max-width:82%}.boss-hud{order:2;max-width:none;padding:10px}.battle-log{max-height:100px}
+      .map-viewport{height:auto;min-height:430px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;gap:8px;padding:12px}.boss-figure{order:1;min-height:170px;display:flex;align-items:flex-end;justify-content:center}.boss-img{max-height:170px;max-width:82%}.boss-hud{order:2;max-width:none;padding:10px}
+.battle-history-entry{
+  margin:0 0 7px;
+  padding:6px 7px;
+  border-radius:9px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.06);
+}
+.battle-history-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:4px;
+  color:#a5b4fc;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.2px;
+}
+.battle-history-lines > div{
+  padding:2px 0;
+  border-bottom:0;
+  font-size:9.5px;
+  line-height:1.35;
+}
+.battle-log{max-height:100px}
       .item-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.item-card{padding:9px;border-radius:13px}.item-thumb-wrapper{border-radius:10px}.item-card button{font-size:10px;padding:6px 7px}.shop-section-tabs{position:sticky;top:52px;z-index:120}.gacha-banner{min-height:150px;padding:14px}.gacha-banner h3{font-size:21px!important}.gacha-pulls{grid-template-columns:1fr}.gacha-rate-row{grid-template-columns:22px 1fr 55px}.gacha-card{padding:10px}.gacha-spin{font-size:13px!important}
       .reward-backdrop,.site-dialog-backdrop{padding:9px}.reward-panel,.site-dialog{width:100%;border-radius:17px}.reward-body,.site-dialog-body{padding:13px}.reward-main{grid-template-columns:72px 1fr;gap:10px}.reward-icon{width:72px;height:72px;font-size:34px}.reward-name{font-size:15px}.reward-list{margin-top:10px}.reward-row{font-size:10.5px;padding:7px 8px}.site-dialog-message{font-size:12px}
       table{font-size:11px}table{display:block;overflow-x:auto;max-width:100%}th,td{white-space:nowrap}
@@ -1776,6 +1801,165 @@
   }
 }
 
+
+/* =========================================================
+   V20 — EFFECTS PANEL + BATTLE HISTORY LIMIT + CSS CLEANUP
+   ========================================================= */
+.avatar-badge{display:none!important;}
+
+.effect-summary-card{
+  width:100%;
+  min-height:38px;
+  margin-top:9px;
+  padding:7px 10px!important;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  border:1px solid rgba(56,189,248,.28);
+  border-radius:10px;
+  background:linear-gradient(135deg,rgba(34,211,238,.13),rgba(168,85,247,.16),rgba(236,72,153,.10));
+  color:#fff;
+  cursor:pointer;
+  text-align:left;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.025),0 5px 20px rgba(79,70,229,.10);
+  transition:.2s ease;
+}
+.effect-summary-card:hover{
+  border-color:rgba(168,85,247,.55);
+  filter:brightness(1.06);
+}
+.effect-summary-left{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.effect-summary-icon{
+  width:24px;
+  height:24px;
+  flex:0 0 24px;
+  border-radius:7px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#22d3ee,#8b5cf6,#ec4899);
+  border:1px solid rgba(255,255,255,.18);
+  font-size:12px;
+}
+.effect-summary-left > span:nth-child(2){
+  font-size:11px;
+  font-weight:800;
+  text-transform:none;
+  letter-spacing:.1px;
+}
+.effect-summary-muted{display:none!important;}
+.effect-summary-arrow{
+  flex:0 0 auto;
+  color:#fff;
+  font-size:18px;
+  line-height:1;
+}
+.effect-details{
+  margin-top:7px;
+  padding:7px;
+  border-radius:12px;
+  background:rgba(4,8,20,.72);
+  border:1px solid rgba(255,255,255,.08);
+  max-height:360px;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+}
+.effect-details-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:6px;
+}
+.effect-detail-item{
+  min-width:0;
+  padding:8px;
+  border-radius:9px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+}
+.effect-detail-item.empty{opacity:.78;}
+.effect-detail-head{display:flex;align-items:center;gap:7px;min-width:0;}
+.effect-detail-icon{
+  flex:0 0 auto;
+  width:25px;
+  height:25px;
+  border-radius:7px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(99,102,241,.14);
+  border:1px solid rgba(255,255,255,.12);
+  font-size:13px;
+}
+.effect-detail-title-wrap{min-width:0;display:flex;flex-direction:column;gap:2px;}
+.effect-detail-title-wrap b{font-size:10.5px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.effect-detail-title-wrap small{font-size:8.5px;color:#cbd5e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.effect-detail-desc{margin-top:5px;font-size:9px;line-height:1.42;color:#e2e8f0;}
+
+/* Màu hiệu ứng theo nguồn */
+.effect-type-gear{
+  background:linear-gradient(135deg,rgba(244,63,94,.13),rgba(249,115,22,.08))!important;
+  border-color:rgba(244,63,94,.22)!important;
+}
+.effect-type-rune{
+  background:linear-gradient(135deg,rgba(168,85,247,.16),rgba(99,102,241,.08))!important;
+  border-color:rgba(168,85,247,.25)!important;
+}
+.effect-type-combo{
+  background:linear-gradient(135deg,rgba(236,72,153,.16),rgba(245,158,11,.08))!important;
+  border-color:rgba(236,72,153,.26)!important;
+}
+.effect-type-buff{
+  background:linear-gradient(135deg,rgba(34,211,238,.14),rgba(16,185,129,.08))!important;
+  border-color:rgba(34,211,238,.22)!important;
+}
+.effect-type-slot{
+  background:linear-gradient(135deg,rgba(59,130,246,.13),rgba(14,165,233,.08))!important;
+  border-color:rgba(59,130,246,.22)!important;
+}
+.effect-type-gear .effect-detail-icon{background:rgba(244,63,94,.14);}
+.effect-type-rune .effect-detail-icon{background:rgba(168,85,247,.16);}
+.effect-type-combo .effect-detail-icon{background:rgba(236,72,153,.16);}
+.effect-type-buff .effect-detail-icon{background:rgba(34,211,238,.14);}
+.effect-type-slot .effect-detail-icon{background:rgba(59,130,246,.14);}
+
+.battle-log{
+  max-height:190px;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+}
+.battle-log > div{
+  border-bottom:1px solid rgba(255,255,255,.045);
+  padding:5px 0;
+}
+
+@media(max-width:700px){
+  .effect-summary-card{
+    margin-top:7px;
+    min-height:34px;
+    padding:6px 8px!important;
+    border-radius:10px;
+  }
+  .effect-summary-icon{width:21px;height:21px;flex-basis:21px;font-size:11px;}
+  .effect-summary-left > span:nth-child(2){font-size:10.5px;}
+  .effect-summary-arrow{font-size:17px;}
+  .effect-details{padding:6px;max-height:320px;}
+  .effect-details-list{grid-template-columns:1fr;gap:5px;}
+  .effect-detail-item{padding:7px;}
+  .effect-detail-title-wrap b{font-size:10px;}
+  .effect-detail-title-wrap small{font-size:8.3px;}
+  .effect-detail-desc{font-size:8.8px;}
+  .battle-log{max-height:155px;}
+}
+
 </style>
 </head>
 <body>
@@ -2017,7 +2201,7 @@
             <span class="effect-summary-left">
               <span class="effect-summary-icon">✨</span>
               <span>Hiệu Ứng</span>
-              <span id="effectSummaryText" class="effect-summary-muted">Đang tải...</span>
+              <span id="effectSummaryText" class="effect-summary-muted" aria-hidden="true">Hiệu ứng</span>
             </span>
             <span id="effectSummaryArrow" class="effect-summary-arrow">›</span>
           </button>
@@ -3984,11 +4168,40 @@
       saveState();
     }
 
+    let currentBattleHistoryEntry = null;
+
+    function beginBattleHistoryEntry(attackNumber) {
+      const log = document.getElementById('battleLog');
+      if (!log) return;
+
+      const entry = document.createElement('div');
+      entry.className = 'battle-history-entry';
+      entry.dataset.attackNumber = String(attackNumber);
+      entry.innerHTML = `<div class="battle-history-head"><span>Lần đánh #${attackNumber}</span><span>⚔️</span></div><div class="battle-history-lines"></div>`;
+
+      log.prepend(entry);
+      currentBattleHistoryEntry = entry;
+
+      // Chỉ giữ 10 lần đánh gần nhất; lần thứ 11 sẽ loại lần #1.
+      const entries = log.querySelectorAll('.battle-history-entry');
+      if (entries.length > 10) {
+        entries[entries.length - 1].remove();
+      }
+    }
+
     function logBattle(msg) {
       const log = document.getElementById('battleLog');
+      if (!log) return;
+      if (!currentBattleHistoryEntry || !log.contains(currentBattleHistoryEntry)) {
+        const div = document.createElement('div');
+        div.innerHTML = msg;
+        log.prepend(div);
+        return;
+      }
+      const lines = currentBattleHistoryEntry.querySelector('.battle-history-lines');
       const div = document.createElement('div');
       div.innerHTML = msg;
-      log.prepend(div);
+      lines ? lines.appendChild(div) : currentBattleHistoryEntry.appendChild(div);
     }
 
     function attackBoss(event) {
@@ -3998,6 +4211,7 @@
       const map=getCurrentMap();
       if(map.hp<=0) return alert("Boss của ải này đã bị tiêu diệt! Hãy chuyển ải hoặc chỉnh sửa trong Cài đặt.");
       state.bossTokens--; state.hitCountTotal=(state.hitCountTotal||0)+1; state.dailyHitsCount=(state.dailyHitsCount||0)+1;
+      beginBattleHistoryEntry(state.hitCountTotal);
       const stats=getHeroStats(); triggerScreenShake();
       let bossArmor=map.armor||15;
       const todayStr=localDateKey(new Date());
@@ -5000,7 +5214,7 @@
       const box = document.getElementById('effectDetailsList');
       if (!box) return;
       box.innerHTML = entries.map(e => `
-        <div class="effect-detail-item ${e.type === 'empty' ? 'empty' : ''}">
+        <div class="effect-detail-item effect-type-${e.type} ${e.type === 'empty' ? 'empty' : ''}">
           <div class="effect-detail-head">
             <span class="effect-detail-icon">${e.icon}</span>
             <div class="effect-detail-title-wrap">
@@ -5018,16 +5232,7 @@
       const realEntries = entries.filter(e => e.type !== 'empty');
       const summary = document.getElementById('effectSummaryText');
       if (summary) {
-        const types = [];
-        const runeCount = realEntries.filter(e => e.type === 'rune' || e.type === 'combo').length;
-        const gearCount = realEntries.filter(e => e.type === 'gear').length;
-        const buffCount = realEntries.filter(e => e.type === 'buff').length;
-        const slotCount = realEntries.filter(e => e.type === 'slot').length;
-        if (runeCount) types.push(`Rune ${runeCount}`);
-        if (gearCount) types.push(`Đồ ${gearCount}`);
-        if (buffCount) types.push(`Buff ${buffCount}`);
-        if (slotCount) types.push(`Ô ${slotCount}`);
-        summary.textContent = realEntries.length ? `${realEntries.length} hiệu ứng${types.length ? ' • ' + types.join(' • ') : ''}` : 'Chưa có hiệu ứng đặc biệt';
+        summary.textContent = 'Hiệu ứng';
       }
       const panel = document.getElementById('effectDetails');
       if (panel && !panel.hidden) renderEffectDetails();
@@ -5474,99 +5679,3 @@
 
 </body>
 </html>
-
-
-/* =========================================================
-   V19 — CHARACTER EFFECTS + AVATAR CLEANUP
-   ========================================================= */
-.avatar-badge{display:none!important;}
-
-.effect-summary-card{
-  width:100%;
-  margin-top:9px;
-  padding:8px 10px!important;
-  min-height:38px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  border:1px solid rgba(99,102,241,.18);
-  border-radius:11px;
-  background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(255,255,255,.025));
-  color:#fff;
-  cursor:pointer;
-  text-align:left;
-  transition:.2s ease;
-}
-.effect-summary-card:hover{
-  border-color:rgba(99,102,241,.38);
-  background:linear-gradient(135deg,rgba(99,102,241,.13),rgba(168,85,247,.07));
-}
-.effect-summary-left{
-  min-width:0;
-  display:flex;
-  align-items:center;
-  gap:7px;
-  flex-wrap:wrap;
-}
-.effect-summary-icon{
-  width:23px;height:23px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;
-  background:rgba(168,85,247,.13);border:1px solid rgba(168,85,247,.22);font-size:12px;
-}
-.effect-summary-muted{
-  min-width:0;
-  color:var(--subtext);
-  font-size:10.5px;
-  font-weight:600;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.effect-summary-arrow{
-  flex:0 0 auto;
-  color:#a5b4fc;
-  font-size:19px;
-  line-height:1;
-}
-.effect-details{
-  margin-top:6px;
-  padding:7px;
-  border-radius:12px;
-  background:rgba(5,10,22,.52);
-  border:1px solid rgba(255,255,255,.06);
-}
-.effect-details-list{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:6px;
-}
-.effect-detail-item{
-  min-width:0;
-  padding:8px;
-  border-radius:9px;
-  background:rgba(255,255,255,.035);
-  border:1px solid rgba(255,255,255,.065);
-}
-.effect-detail-item.empty{opacity:.72;}
-.effect-detail-head{display:flex;align-items:center;gap:7px;min-width:0;}
-.effect-detail-icon{
-  flex:0 0 auto;width:24px;height:24px;border-radius:7px;
-  display:inline-flex;align-items:center;justify-content:center;
-  background:rgba(99,102,241,.10);border:1px solid rgba(99,102,241,.16);font-size:13px;
-}
-.effect-detail-title-wrap{min-width:0;display:flex;flex-direction:column;gap:2px;}
-.effect-detail-title-wrap b{font-size:10.5px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.effect-detail-title-wrap small{font-size:8.5px;color:var(--subtext);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.effect-detail-desc{margin-top:5px;font-size:9px;line-height:1.4;color:#cbd5e1;}
-
-@media(max-width:700px){
-  .effect-summary-card{margin-top:7px;min-height:34px;padding:6px 8px!important;border-radius:10px;}
-  .effect-summary-left{gap:5px;}
-  .effect-summary-icon{width:21px;height:21px;border-radius:6px;font-size:11px;}
-  .effect-summary-muted{font-size:9px;}
-  .effect-summary-arrow{font-size:17px;}
-  .effect-details{padding:6px;}
-  .effect-details-list{grid-template-columns:1fr;gap:5px;}
-  .effect-detail-item{padding:7px;}
-  .effect-detail-desc{font-size:8.8px;}
-}
