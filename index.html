@@ -858,7 +858,7 @@
     }
 
 
-    /* V15 — ultra compact mobile header + segmented sub-tabs */
+    /* V16 — ultra compact mobile header + segmented sub-tabs */
     .hero-bars-compact{display:flex;flex-direction:column;gap:4px;margin-top:4px;}
     .hero-hp-line,.hero-exp-line{min-width:0;}
     .hero-bar-bg{position:relative;width:100%;height:8px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.05);}
@@ -927,7 +927,7 @@
   
 
     /* ============================================================
-       V15 — Mobile polish: readable resources, equal HP/EXP bars,
+       V16 — Mobile polish: readable resources, equal HP/EXP bars,
        compact combat stats, visible Camp/SFX icons, Vietnamese labels
        ============================================================ */
     .compact-resource-bar .badge{font-variant-numeric:tabular-nums;}
@@ -1024,7 +1024,137 @@
       .combat-stats-panel .combat-stats .badge{font-size:9.1px!important;padding:5px 2px!important;}
     }
 
-  </style>
+  
+    /* V16 Mobile Refinement: clearer bars, circular avatar, background touch lock */
+    html, body { overscroll-behavior-x: none; }
+    #bgVideo, #bgImageLayer, .video-bg, .overlay-dim {
+      pointer-events: none !important;
+      -webkit-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+      touch-action: none !important;
+    }
+    .system-audio-control {
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:10px 12px; border:1px solid rgba(255,255,255,.08);
+      border-radius:12px; background:rgba(255,255,255,.035);
+    }
+    .system-audio-hint { font-size:10.5px; color:var(--subtext); margin-top:3px; }
+    .hero-bars-compact { min-width:0; }
+    .hero-bar-bg { position:relative; width:100%; border-radius:999px; overflow:hidden; }
+    .hero-bar-value { z-index:2; text-shadow:0 1px 4px rgba(0,0,0,.9); font-weight:800; line-height:1; }
+    @media (max-width:700px) {
+      .hero-header {
+        min-height:108px !important; height:110px !important; max-height:110px !important;
+        grid-template-columns:50px minmax(0,1fr) !important;
+        gap:8px !important; padding:7px 8px !important; align-items:center !important;
+        overflow:visible !important;
+      }
+      .avatar-wrapper {
+        width:50px !important; height:50px !important; padding:3px !important;
+        border-radius:50% !important; margin:0 !important; align-self:center;
+      }
+      .avatar-img {
+        width:44px !important; height:44px !important;
+        border-radius:50% !important; object-fit:cover !important;
+      }
+      .hero-title-row { margin-bottom:4px !important; align-items:center !important; }
+      .hero-title-main { gap:6px !important; flex-wrap:nowrap !important; min-width:0; }
+      .hero-name { font-size:15px !important; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+      .hero-level-badge { padding:4px 8px !important; font-size:9px !important; flex:0 0 auto; }
+      .hero-level-badge b { font-size:13px !important; }
+      .hero-actions { display:none !important; }
+      .stat-bar.compact-resource-bar {
+        display:grid !important; grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+        gap:4px !important; margin:0 0 4px !important;
+      }
+      .compact-resource-bar .badge {
+        justify-content:center; padding:4px 3px !important; font-size:9.5px !important;
+        white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0 !important;
+      }
+      .hero-hp-line, .hero-exp-line { width:100%; }
+      .hero-hp-line { margin-bottom:4px !important; }
+      .hero-bar-bg { height:12px !important; margin-top:0 !important; background:rgba(255,255,255,.09); }
+      .hero-exp-bg { height:7px !important; }
+      .hero-bar-value { right:7px !important; font-size:10.5px !important; top:50% !important; transform:translateY(-50%); }
+      .hero-exp-value { font-size:9.5px !important; }
+      .music-dock { margin-top:5px !important; min-height:26px !important; height:26px !important; }
+      .music-dock-main { min-height:24px !important; }
+      .music-play-btn { min-width:28px !important; width:28px !important; height:24px !important; padding:0 !important; }
+      .music-play-label, .music-current-prefix, .music-current-icon { display:none !important; }
+      .music-current { font-size:10.5px !important; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+      .music-settings-btn { width:28px !important; height:24px !important; padding:0 !important; font-size:13px !important; }
+    }
+    @media (max-width:420px) {
+      .hero-header { grid-template-columns:49px minmax(0,1fr) !important; padding-left:7px !important; padding-right:7px !important; }
+      .avatar-wrapper { width:49px !important; height:49px !important; }
+      .avatar-img { width:43px !important; height:43px !important; }
+      .hero-name { font-size:14.5px !important; }
+      .compact-resource-bar .badge { font-size:9px !important; padding-inline:2px !important; }
+      .hero-bar-value { font-size:10.5px !important; }
+    }
+    @media (min-width:701px) {
+      .system-audio-control { max-width:520px; }
+      .hero-actions { display:none !important; }
+      .hero-header .hero-info { width:100%; }
+    }
+
+
+    /* V16b final mobile tuning */
+    .bg-image-layer, #bgImageLayer {
+      position:fixed !important; inset:0 !important;
+      pointer-events:none !important;
+      -webkit-touch-callout:none !important; user-select:none !important;
+      -webkit-user-select:none !important; touch-action:none !important;
+    }
+    #bgImageLayer { background-repeat:no-repeat !important; background-size:cover !important; background-position:center center !important; }
+    #bgVideo {
+      pointer-events:none !important;
+      -webkit-touch-callout:none !important; user-select:none !important;
+      -webkit-user-select:none !important; touch-action:none !important;
+    }
+    @media(max-width:700px){
+      .hero-header{
+        height:110px !important; min-height:110px !important; max-height:110px !important;
+        grid-template-columns:50px minmax(0,1fr) !important;
+        gap:8px !important; padding:7px 8px !important;
+      }
+      .avatar-wrapper{
+        width:50px !important; height:50px !important;
+        min-width:50px !important; border-radius:50% !important;
+        padding:3px !important; overflow:hidden !important;
+      }
+      .avatar-img{
+        width:44px !important; height:44px !important;
+        border-radius:50% !important; object-fit:cover !important;
+        display:block !important;
+      }
+      .hero-title-row{justify-content:flex-start !important; align-items:center !important; margin-bottom:4px !important;}
+      .hero-title-main{gap:7px !important; flex-wrap:nowrap !important;}
+      .hero-name{font-size:15px !important; line-height:1.1 !important; white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important;}
+      .hero-level-badge{padding:4px 8px !important; font-size:9px !important;}
+      .hero-level-badge b{font-size:13px !important;}
+      .stat-bar.compact-resource-bar{
+        display:grid !important; grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+        gap:4px !important; margin:0 0 4px !important;
+      }
+      .compact-resource-bar .badge{
+        padding:4px 3px !important; font-size:9.5px !important;
+        justify-content:center !important; white-space:nowrap !important;
+      }
+      .hero-bar-bg{height:13px !important; margin-top:0 !important;}
+      .hero-exp-bg{height:9px !important;}
+      .hero-bar-value{
+        right:7px !important; top:50% !important; transform:translateY(-50%) !important;
+        font-size:11px !important; font-weight:900 !important;
+        text-shadow:0 1px 5px rgba(0,0,0,.95) !important;
+      }
+      .hero-exp-value{font-size:10px !important;}
+      .music-dock{height:26px !important; min-height:26px !important; margin-top:5px !important;}
+      .music-play-btn,.music-settings-btn{height:24px !important; min-height:24px !important;}
+    }
+
+</style>
 </head>
 <body>
 
@@ -1062,10 +1192,6 @@
             <h2 class="hero-name"><span>🗡️ <span id="heroName">Hiệp Sĩ</span></span></h2>
             <span class="hero-level-badge">Lv.<b id="lvlDisplay">1</b></span>
           </div>
-          <div class="hero-actions">
-            <button class="secondary" onclick="toggleCampMode()" id="campToggleBtn" style="padding:4px 9px; font-size:11px;">🏕️ Cắm Trại: TẮT</button>
-            <button class="secondary" onclick="toggleAudio()" id="audioToggleBtn" style="padding:4px 9px; font-size:11px;">🔊 SFX: BẬT</button>
-          </div>
         </div>
         <div class="stat-bar compact-resource-bar" aria-label="Tài nguyên nhanh">
           <div class="badge" style="color:var(--gold);" title="Vàng">🪙 <span id="coinDisplay">0</span> Vàng</div>
@@ -1077,7 +1203,6 @@
         <div class="hero-bars-compact">
           <div class="hero-hp-line">
             <div class="hero-bar-bg"><div id="heroHpBar" class="bar-fill-hp"></div><span class="hero-bar-value"><span id="heroHpDisplay">350</span>/<span id="heroMaxHpDisplay">350</span></span></div>
-            <small id="campStatusText" class="camp-status-mini" style="display:none;">Cắm Trại +2%/giờ</small>
           </div>
           <div class="hero-exp-line">
             <div class="hero-bar-bg hero-exp-bg"><div id="expBar" class="bar-fill-exp"></div><span class="hero-bar-value hero-exp-value"><span id="expDisplay">0</span>/<span id="maxExpDisplay">100</span></span></div>
@@ -1694,6 +1819,16 @@
     <div class="system-subtitle"><span>🎵 Nhạc BGM & Presets</span><small>Quản lý danh sách nhạc YouTube và điều khiển BGM.</small></div>
 
 <div class="card">
+          <div class="system-audio-control">
+            <div>
+              <b>🔊 Hiệu ứng SFX</b>
+              <div class="system-audio-hint">Âm thanh thao tác và chiến đấu.</div>
+            </div>
+            <button class="secondary" id="systemSfxToggleBtn" type="button" onclick="toggleAudio()">🔊 SFX: BẬT</button>
+          </div>
+        </div>
+
+<div class="card">
           <h3>
             <span>🎵 Danh Sách Thánh Nhạc BGM (YouTube Iframe)</span>
             <button onclick="openAddSongModal()" style="font-size:12px;">+ Thêm Bài Mới</button>
@@ -1942,7 +2077,13 @@
 
     function toggleAudio() {
       audioEnabled = !audioEnabled;
-      document.getElementById('audioToggleBtn').innerText = audioEnabled ? "🔊 SFX: BẬT" : "🔈 SFX: TẮT";
+      const btn = document.getElementById('systemSfxToggleBtn');
+      if (btn) {
+        btn.innerText = audioEnabled ? "🔊 SFX: BẬT" : "🔈 SFX: TẮT";
+        btn.className = audioEnabled ? 'secondary' : 'secondary';
+      }
+      playSfx('click');
+      saveState();
     }
 
     /* ============================================================
@@ -2176,7 +2317,7 @@
       OTHALA:{name:'OTHALA', glyph:'ᛟ', essence:'Thần Tộc', buff:'+15% Max HP; tăng 10% hiệu quả dòng chỉ số trang bị.'},
       HAGALAZ:{name:'HAGALAZ', glyph:'ᚺ', essence:'Băng Hoại', buff:'Đòn Boss đầu ngày không phản đòn; -10 Giáp Boss.'},
       NAUDIZ:{name:'NAUDIZ', glyph:'ᚾ', essence:'Nghịch Cảnh', buff:'Dưới 30% HP: +35% ATK và hút máu 15% DMG.'},
-      ISAZ:{name:'ISAZ', glyph:'ᛁ', essence:'Ngưng Đọng', buff:'Bùa chú/dược tễ kéo dài +50%; Cắm trại hồi 3.5% HP/giờ.'},
+      ISAZ:{name:'ISAZ', glyph:'ᛁ', essence:'Ngưng Đọng', buff:'Bùa chú/dược tễ kéo dài +50%.'},
       JERA:{name:'JERA', glyph:'ᛃ', essence:'Bội Thu', buff:'Đủ 5 task/ngày: +1 Rương Gỗ +50 Vàng; cường hóa +5 điểm %.'},
       EIHWAZ:{name:'EIHWAZ', glyph:'ᛇ', essence:'Cây Thế Giới', buff:'Chịu đòn chí tử: giữ 1 HP + hồi 20% Max HP, 1 lần/ngày; +150 Max HP.'},
       PERTHRO:{name:'PERTHRO', glyph:'ᛈ', essence:'Vận Mệnh', buff:'15% đòn Boss x2 DMG; tăng nhẹ cơ hội nhóm Gacha quý.'},
@@ -2243,8 +2384,6 @@
       dailyHitsCount: 0,
       
       heroHp: 350,
-      isCamping: false,
-      lastCampTimestamp: 0,
       lastBackupTimestamp: Date.now(),
       lastPhoenixReviveDate: null, // Hồi chiêu 1 lần/ngày
       hasPhoenixShield: false,     // Khiên chặn 1 hit sau khi hồi sinh
@@ -2631,36 +2770,8 @@
     }
 
     /* ============================================================
-       5. CẮM TRẠI TREO MÁY & AUTO-BACKUP
+       5. AUTO-BACKUP
        ============================================================ */
-    function toggleCampMode() {
-      playSfx('click');
-      state.isCamping = !state.isCamping;
-      if (state.isCamping) {
-        state.lastCampTimestamp = Date.now();
-        alert(`🏕️ Đã dựng lều cắm trại! Tự động hồi phục ${hasRune('ISAZ')?3.5:2}% HP mỗi giờ.`);
-      } else {
-        processCampHeal();
-        alert("🏕️ Đã thu dọn lều trại để tiếp tục hành trình!");
-      }
-      saveState();
-    }
-
-    function processCampHeal() {
-      if (!state.isCamping) return;
-      const now = Date.now();
-      const hoursPassed = (now - (state.lastCampTimestamp || now)) / (1000 * 3600);
-      if (hoursPassed > 0.05) {
-        const maxHp = getHeroMaxHp();
-        const regenRate=hasRune('ISAZ')?3.5:2;
-        const hpToHeal = Math.round(maxHp * ((hoursPassed * regenRate) / 100));
-        if (hpToHeal > 0 && state.heroHp < maxHp) {
-          state.heroHp = Math.min(maxHp, state.heroHp + hpToHeal);
-        }
-        state.lastCampTimestamp = now;
-      }
-    }
-
     function checkBackupReminder() {
       const now = Date.now();
       const threeDaysMs = 3 * 24 * 3600 * 1000;
@@ -4099,8 +4210,6 @@
 
     function render() {
       resetDailyCycles();
-      processCampHeal();
-
       // Profile
       document.getElementById('heroName').innerText = state.heroName;
       document.getElementById('avatarDisplay').src = state.avatarUrl || "https://api.dicebear.com/7.x/bottts/svg?seed=hero";
@@ -4109,19 +4218,8 @@
       document.getElementById('streakDisplay').innerText = state.streak;
       document.getElementById('shieldDisplay').innerText = state.shields;
       document.getElementById('bossTokens').innerText = state.bossTokens || 0;
-
-      // Camp Button
-      const campBtn = document.getElementById('campToggleBtn');
-      const campText = document.getElementById('campStatusText');
-      if (state.isCamping) {
-        campBtn.innerText = "🏕️ Cắm Trại: BẬT";
-        campBtn.className = "orange";
-        campText.style.display = "inline";
-      } else {
-        campBtn.innerText = "🏕️ Cắm Trại: TẮT";
-        campBtn.className = "secondary";
-        campText.style.display = "none";
-      }
+      const sfxBtn = document.getElementById('systemSfxToggleBtn');
+      if (sfxBtn) sfxBtn.innerText = audioEnabled ? "🔊 SFX: BẬT" : "🔈 SFX: TẮT";
 
       // Stats & HP
       const stats = getHeroStats();
