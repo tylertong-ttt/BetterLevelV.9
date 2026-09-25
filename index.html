@@ -857,6 +857,73 @@
       .music-settings-popover{left:7px;right:7px;}
     }
 
+
+    /* V14 — ultra compact mobile header + segmented sub-tabs */
+    .hero-bars-compact{display:flex;flex-direction:column;gap:4px;margin-top:4px;}
+    .hero-hp-line,.hero-exp-line{min-width:0;}
+    .hero-bar-bg{position:relative;width:100%;height:8px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.05);}
+    .hero-exp-bg{height:4px;}
+    .hero-bar-bg .bar-fill-hp,.hero-bar-bg .bar-fill-exp{position:absolute;inset:0 auto 0 0;height:100%;}
+    .hero-bar-value{position:absolute;right:5px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:800;color:#fff;line-height:1;pointer-events:none;text-shadow:0 1px 3px rgba(0,0,0,.65);}
+    .hero-exp-value{font-size:7px;right:4px;}
+    .camp-status-mini{display:none!important;}
+    .combat-stats-panel{margin-top:12px;padding:10px 0 0;border-top:1px solid rgba(255,255,255,.08);}
+    .combat-stats-title{font-size:12px;font-weight:800;color:var(--cyan);margin-bottom:7px;}
+    .combat-stats-panel .combat-stats{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;}
+    .combat-stats-panel .combat-stats .badge{justify-content:center;min-width:0;padding:6px 4px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .character-buffs{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap;}
+    .group-subnav-shell{margin-top:10px!important;margin-bottom:12px!important;padding:3px!important;border-radius:12px!important;background:rgba(0,0,0,.35)!important;border:1px solid rgba(255,255,255,.07)!important;}
+    .group-subnav{display:flex;flex:1 1 auto;min-width:0;gap:3px!important;}
+    .group-sub-btn{flex:1 1 0!important;min-width:0!important;text-align:center;padding:8px 8px!important;font-size:12.5px!important;font-weight:600!important;border:0!important;border-radius:9px!important;background:transparent!important;transition:background .2s ease,color .2s ease,box-shadow .2s ease,transform .2s ease!important;}
+    .group-sub-btn.active{background:var(--primary)!important;color:#fff!important;box-shadow:0 4px 14px rgba(99,102,241,.22)!important;}
+    @media(max-width:700px){
+      .hero-header{height:110px!important;max-height:120px!important;padding:7px 9px!important;grid-template-columns:50px minmax(0,1fr)!important;gap:7px!important;align-items:center!important;overflow:visible!important;}
+      .avatar-img{width:48px!important;height:48px!important;}
+      .avatar-badge{display:none!important;}
+      .hero-info{height:100%;display:grid;grid-template-rows:24px 22px 1fr auto;align-content:center;min-width:0;}
+      .hero-title-row{margin:0!important;min-height:24px!important;align-items:center!important;}
+      .hero-title-main{flex-wrap:nowrap!important;gap:6px!important;min-width:0!important;}
+      .hero-name{font-size:14px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+      .hero-level-badge{padding:3px 7px!important;font-size:8px!important;flex:0 0 auto;}
+      .hero-level-badge b{font-size:12px!important;}
+      .hero-actions{gap:4px!important;max-width:72px!important;flex-wrap:nowrap!important;}
+      .hero-actions button{width:30px!important;height:28px!important;min-height:28px!important;padding:0!important;font-size:0!important;border-radius:8px!important;overflow:hidden;}
+      .hero-actions button:first-child::before{content:'🏕️';font-size:15px;}
+      .hero-actions button:last-child::before{content:'🔊';font-size:15px;}
+      .hero-actions button{color:transparent!important;}
+      .compact-resource-bar{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:3px!important;margin:0!important;}
+      .compact-resource-bar .badge{height:20px!important;padding:2px 2px!important;font-size:9px!important;border-radius:7px!important;gap:2px!important;justify-content:center!important;}
+      .hero-bars-compact{gap:3px!important;margin-top:1px!important;}
+      .hero-bar-bg{height:6px!important;}
+      .hero-exp-bg{height:3px!important;}
+      .hero-bar-value{font-size:8px!important;right:4px!important;}
+      .hero-exp-value{font-size:6px!important;right:3px!important;}
+      .music-dock{margin-top:2px!important;height:24px!important;min-height:24px!important;padding:2px 4px!important;border-radius:7px!important;}
+      .music-play-btn{width:28px!important;height:20px!important;min-width:28px!important;border-radius:6px!important;font-size:11px!important;}
+      .music-current{font-size:9px!important;}
+      .music-settings-btn{width:24px!important;height:20px!important;border-radius:6px!important;}
+      .group-subnav-shell{margin-top:10px!important;margin-bottom:12px!important;padding:3px!important;position:relative!important;top:auto!important;}
+      .group-subnav{width:100%!important;overflow:hidden!important;gap:3px!important;}
+      .group-sub-btn{font-size:11px!important;padding:8px 5px!important;line-height:1.15!important;min-height:34px!important;}
+      .group-subnav-title{display:none!important;}
+      .combat-stats-panel{margin-top:10px!important;padding-top:9px!important;}
+      .combat-stats-title{font-size:11px!important;margin-bottom:6px!important;}
+      .combat-stats-panel .combat-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:4px!important;}
+      .combat-stats-panel .combat-stats .badge{font-size:10px!important;padding:6px 4px!important;min-height:28px!important;}
+    }
+    @media(max-width:390px){
+      .hero-header{height:108px!important;grid-template-columns:48px minmax(0,1fr)!important;padding:6px 8px!important;}
+      .avatar-img{width:46px!important;height:46px!important;}
+      .hero-name{font-size:13.5px!important;}
+      .hero-level-badge{padding:2px 6px!important;}
+      .compact-resource-bar .badge{font-size:8.4px!important;}
+      .music-current{font-size:8.5px!important;}
+      .group-sub-btn{font-size:10.5px!important;padding:7px 3px!important;}
+    }
+
+    /* V14 hard-hide combat stats from header; stats live only inside Chiến Binh */
+    .hero-info > .combat-stats{display:none!important;}
+
   </style>
 </head>
 <body>
@@ -893,7 +960,7 @@
         <div class="hero-title-row">
           <div class="hero-title-main">
             <h2 class="hero-name"><span>🗡️ <span id="heroName">Hiệp Sĩ</span></span></h2>
-            <span class="hero-level-badge">CẤP <b id="lvlDisplay">1</b></span>
+            <span class="hero-level-badge">Lv.<b id="lvlDisplay">1</b></span>
           </div>
           <div class="hero-actions">
             <button class="secondary" onclick="toggleCampMode()" id="campToggleBtn" style="padding:4px 9px; font-size:11px;">🏕️ Cắm Trại: TẮT</button>
@@ -901,38 +968,21 @@
           </div>
         </div>
         <div class="stat-bar compact-resource-bar" aria-label="Tài nguyên nhanh">
-          <div class="badge" style="color:var(--gold);">🪙 <span id="coinDisplay">0</span> Vàng</div>
-          <div class="badge" style="color:var(--orange);">🔥 <span id="streakDisplay">0 ngày</span></div>
-          <div class="badge" style="color:var(--primary);">🛡️ Khiên: <span id="shieldDisplay">0</span></div>
-          <div class="badge" style="color:var(--cyan);">⚔️ Lượt Đánh: <span id="bossTokens">0</span></div>
-        </div>
-        
-        <!-- Thanh Máu (HP) của Người Chơi -->
-        <div style="margin-bottom:6px;">
-          <div style="display:flex; justify-content:space-between; font-size:11.5px; color:var(--green); font-weight:600;">
-            <span>Sinh Mệnh (HP) <small id="campStatusText" style="color:var(--gold); display:none;">(Đang cắm trại hồi +2% HP/giờ)</small></span>
-            <span style="font-family:'JetBrains Mono';"><span id="heroHpDisplay">350</span> / <span id="heroMaxHpDisplay">350</span></span>
-          </div>
-          <div class="bar-bg"><div id="heroHpBar" class="bar-fill-hp"></div></div>
+          <div class="badge" style="color:var(--gold);" title="Vàng">🪙 <span id="coinDisplay">0</span></div>
+          <div class="badge" style="color:var(--orange);" title="Chuỗi ngày">🔥 <span id="streakDisplay">0</span></div>
+          <div class="badge" style="color:var(--primary);" title="Khiên">🛡️ <span id="shieldDisplay">0</span></div>
+          <div class="badge" style="color:var(--cyan);" title="Lượt đánh">⚔️ <span id="bossTokens">0</span></div>
         </div>
 
-        <!-- Thanh EXP -->
-        <div>
-          <div style="display:flex; justify-content:space-between; font-size:11.5px; color:var(--subtext);">
-            <span>Tiến trình EXP</span>
-            <span style="font-family:'JetBrains Mono';"><span id="expDisplay">0</span> / <span id="maxExpDisplay">100</span></span>
+        <div class="hero-bars-compact">
+          <div class="hero-hp-line">
+            <div class="hero-bar-bg"><div id="heroHpBar" class="bar-fill-hp"></div><span class="hero-bar-value"><span id="heroHpDisplay">350</span>/<span id="heroMaxHpDisplay">350</span></span></div>
+            <small id="campStatusText" class="camp-status-mini" style="display:none;">Cắm Trại +2%/giờ</small>
           </div>
-          <div class="bar-bg"><div id="expBar" class="bar-fill-exp"></div></div>
+          <div class="hero-exp-line">
+            <div class="hero-bar-bg hero-exp-bg"><div id="expBar" class="bar-fill-exp"></div><span class="hero-bar-value hero-exp-value"><span id="expDisplay">0</span>/<span id="maxExpDisplay">100</span></span></div>
+          </div>
         </div>
-
-        <div class="combat-stats" style="margin-top:7px;">
-          <div class="badge">⚔️ ATK: <span id="statATK">20</span></div>
-          <div class="badge">🛡️ DEF: <span id="statDEF">10</span></div>
-          <div class="badge">💥 CRIT: <span id="statCRIT">5</span>%</div>
-          <div class="badge" style="color:var(--cyan);">💨 EVA: <span id="statEVA">0</span>%</div>
-          <div class="badge">⚡ CRIT DMG: <span id="statCRITDMG">150</span>%</div>
-        </div>
-        <div id="activeBuffsBar" style="display:flex; gap:6px; margin-top:6px; flex-wrap:wrap;"></div>
 
         <!-- Music dock: PC = thanh mỏng, Mobile = widget mini + pop-up -->
         <div class="music-dock" id="musicDock">
@@ -1111,6 +1161,18 @@
           <small style="font-size:12px; color:var(--subtext); font-weight:normal;">Hover xem so sánh, Nhấn để tháo</small>
         </h3>
          <div class="gear-grid" id="gearSlotsContainer"></div>
+
+        <div class="combat-stats-panel">
+          <div class="combat-stats-title">Chỉ Số Chiến Đấu</div>
+          <div class="combat-stats">
+            <div class="badge">⚔️ ATK <span id="statATK">20</span></div>
+            <div class="badge">🛡️ DEF <span id="statDEF">10</span></div>
+            <div class="badge">💥 CRIT <span id="statCRIT">5</span>%</div>
+            <div class="badge" style="color:var(--cyan);">💨 EVA <span id="statEVA">0</span>%</div>
+            <div class="badge">⚡ CRIT DMG <span id="statCRITDMG">150</span>%</div>
+          </div>
+          <div id="activeBuffsBar" class="character-buffs"></div>
+        </div>
 
         <div class="rune-panel">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;">
@@ -3944,7 +4006,7 @@
       document.getElementById('avatarDisplay').src = state.avatarUrl || "https://api.dicebear.com/7.x/bottts/svg?seed=hero";
       document.getElementById('lvlDisplay').innerText = state.level;
       document.getElementById('coinDisplay').innerText = state.coins;
-      document.getElementById('streakDisplay').innerText = `${state.streak} ngày`;
+      document.getElementById('streakDisplay').innerText = state.streak;
       document.getElementById('shieldDisplay').innerText = state.shields;
       document.getElementById('bossTokens').innerText = state.bossTokens || 0;
 
