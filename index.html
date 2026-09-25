@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BetterLevel - RPG Tasking Universe V12</title>
+  <title>BetterLevel - RPG Tasking Universe V13</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
@@ -613,6 +613,37 @@
     .site-dialog-title-wrap{display:flex;gap:10px;align-items:center;min-width:0}.site-dialog-icon{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:19px}.site-dialog-kicker{font-size:9px;color:var(--cyan);font-weight:900;letter-spacing:1px}.site-dialog-top h3{margin:1px 0 0;font-size:17px}.site-dialog-close{padding:6px 9px!important}
     .site-dialog-body{padding:18px}.site-dialog-message{font-size:13px;line-height:1.65;color:#e2e8f0;white-space:pre-wrap}.site-dialog-meta{margin-top:12px;padding:9px 10px;border-radius:10px;background:rgba(255,255,255,.035);color:var(--subtext);font-size:10.5px;display:none}.site-dialog-actions{padding:11px 18px 16px;display:flex;justify-content:flex-end}
     .reward-image{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block}.reward-icon{overflow:hidden;position:relative}.reward-icon span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}.reward-row{align-items:center}.reward-row-image{width:34px;height:34px;object-fit:cover;border-radius:8px;border:1px solid rgba(255,255,255,.1);margin-right:7px}
+    /* V13 Mobile Hero / Character stats refinement */
+    .hero-title-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px;min-width:0}
+    .hero-title-main{display:flex;align-items:center;gap:9px;min-width:0;flex-wrap:wrap}
+    .hero-name{margin:0!important;font-size:18px!important;line-height:1.2;justify-content:flex-start!important}
+    .hero-level-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:999px;background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(99,102,241,.16));border:1px solid rgba(168,85,247,.35);color:#d8b4fe;font-size:10px;font-weight:900;letter-spacing:.55px;white-space:nowrap;box-shadow:0 3px 10px rgba(99,102,241,.12)}
+    .hero-level-badge b{font-size:14px;color:#fff;line-height:1}
+    .hero-actions{display:flex;align-items:center;justify-content:flex-end;gap:6px;flex-wrap:wrap;min-width:0}
+    .combat-stats{display:none!important}
+    body.hero-stats-visible .combat-stats{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;margin-top:8px!important}
+    body.hero-stats-visible .combat-stats .badge{justify-content:center;min-width:0;padding:5px 5px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    @media(max-width:700px){
+      .hero-title-row{align-items:flex-start;gap:6px;margin-bottom:6px}
+      .hero-title-main{gap:6px;align-items:center}
+      .hero-name{font-size:15px!important}
+      .hero-level-badge{padding:4px 7px;font-size:8.5px}
+      .hero-level-badge b{font-size:13px}
+      .hero-actions{gap:4px}
+      .hero-actions button{min-height:30px!important;padding:4px 7px!important;font-size:9px!important;white-space:nowrap}
+      body.hero-stats-visible .combat-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:7px!important}
+      body.hero-stats-visible .combat-stats .badge{padding:4px 4px;font-size:10px;min-height:27px}
+    }
+    @media(max-width:420px){
+      .hero-title-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start}
+      .hero-title-main{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+      .hero-name{font-size:14.5px!important}
+      .hero-actions{max-width:125px}
+      .hero-actions button{font-size:8.5px!important;padding:3px 5px!important}
+      body.hero-stats-visible .combat-stats{grid-template-columns:repeat(2,minmax(0,1fr));}
+      body.hero-stats-visible .combat-stats .badge{font-size:9.7px}
+    }
+
     /* V10 Responsive Layout System */
     @media (max-width: 900px) {
       .top-shell { grid-template-columns: 1fr; }
@@ -632,26 +663,6 @@
       }
       .avatar-img { width: 62px; height: 62px; }
       .avatar-badge { font-size: 9px; padding: 2px 5px; right: -3px; }
-      .hero-info > div:first-child {
-        display: grid !important;
-        grid-template-columns: minmax(0,1fr) auto;
-        gap: 6px !important;
-        align-items: start !important;
-      }
-      .hero-info > div:first-child h2 {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px 10px;
-        line-height: 1.2;
-        font-size: 16px;
-      }
-      .hero-info > div:first-child > div:last-child {
-        display: flex !important;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 5px !important;
-      }
-      .hero-info > div:first-child > div:last-child button { min-height: 34px; }
       .stat-bar { gap: 5px; margin-bottom: 6px; }
       .badge { padding: 4px 7px; font-size: 10.5px; min-width: 0; }
 
@@ -879,12 +890,12 @@
         <div class="avatar-badge">Đổi Ảnh</div>
       </div>
       <div class="hero-info">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <h2>
-            <span>🗡️ <span id="heroName">Hiệp Sĩ</span></span>
-            <span style="font-size:15px; color:var(--accent);">Cấp <b id="lvlDisplay">1</b></span>
-          </h2>
-          <div style="display:flex; gap:6px;">
+        <div class="hero-title-row">
+          <div class="hero-title-main">
+            <h2 class="hero-name"><span>🗡️ <span id="heroName">Hiệp Sĩ</span></span></h2>
+            <span class="hero-level-badge">CẤP <b id="lvlDisplay">1</b></span>
+          </div>
+          <div class="hero-actions">
             <button class="secondary" onclick="toggleCampMode()" id="campToggleBtn" style="padding:4px 9px; font-size:11px;">🏕️ Cắm Trại: TẮT</button>
             <button class="secondary" onclick="toggleAudio()" id="audioToggleBtn" style="padding:4px 9px; font-size:11px;">🔊 SFX: BẬT</button>
           </div>
@@ -3799,6 +3810,7 @@
 
       document.querySelectorAll('.group-page').forEach(el=>el.style.display='none');
       group.style.display='block';
+      document.body.classList.toggle('hero-stats-visible', groupId === 'group-hero');
       group.querySelectorAll('.group-subpage').forEach(el=>{
         el.style.display='none';
         el.classList.remove('tab-enter');
