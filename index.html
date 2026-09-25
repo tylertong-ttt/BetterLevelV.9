@@ -1154,6 +1154,374 @@
       .music-play-btn,.music-settings-btn{height:24px !important; min-height:24px !important;}
     }
 
+
+
+    /* =========================================================
+       V17 FINAL PROFILE HUD OVERRIDE
+       - Mobile: <= 95px header, circular avatar, BGM in row 1
+       - Desktop: clearer HP/EXP bars, same compact structure
+       ========================================================= */
+    .hero-header{
+      position:relative;
+      display:grid;
+      grid-template-columns:84px minmax(0,1fr);
+      align-items:center;
+      gap:12px;
+      box-sizing:border-box;
+      min-width:0;
+    }
+    .hero-header .hero-info{min-width:0;width:100%;}
+    .hero-title-row{
+      display:flex!important;
+      align-items:center!important;
+      justify-content:space-between!important;
+      gap:8px!important;
+      margin:0 0 4px!important;
+      min-width:0!important;
+    }
+    .hero-title-main{
+      display:flex!important;
+      align-items:center!important;
+      gap:8px!important;
+      min-width:0!important;
+      flex:1 1 auto!important;
+      flex-wrap:nowrap!important;
+    }
+    .hero-name{
+      margin:0!important;
+      min-width:0!important;
+      max-width:100%;
+      white-space:nowrap!important;
+      overflow:hidden!important;
+      text-overflow:ellipsis!important;
+      font-size:18px!important;
+      line-height:1!important;
+      justify-content:flex-start!important;
+    }
+    .hero-level-badge{
+      flex:0 0 auto!important;
+      min-width:48px;
+      height:27px;
+      display:inline-flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      padding:3px 8px!important;
+      box-sizing:border-box;
+      white-space:nowrap;
+      border-radius:999px;
+    }
+    .avatar-wrapper{
+      box-sizing:border-box!important;
+      flex:0 0 84px!important;
+      flex-shrink:0!important;
+      width:84px!important;
+      height:84px!important;
+      min-width:84px!important;
+      min-height:84px!important;
+      max-width:84px!important;
+      max-height:84px!important;
+      aspect-ratio:1/1!important;
+      border-radius:50%!important;
+      padding:3px;
+      overflow:hidden!important;
+    }
+    .avatar-img{
+      display:block!important;
+      box-sizing:border-box!important;
+      width:100%!important;
+      height:100%!important;
+      min-width:0!important;
+      min-height:0!important;
+      max-width:100%!important;
+      max-height:100%!important;
+      aspect-ratio:1/1!important;
+      flex:0 0 auto!important;
+      flex-shrink:0!important;
+      border-radius:50%!important;
+      object-fit:cover!important;
+      object-position:center!important;
+    }
+    .compact-resource-bar{
+      display:grid!important;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:5px!important;
+      width:100%;
+      min-width:0;
+      margin:0 0 4px!important;
+    }
+    .compact-resource-bar .badge{
+      min-width:0!important;
+      justify-content:center!important;
+      white-space:nowrap!important;
+      overflow:hidden!important;
+      text-overflow:ellipsis!important;
+    }
+    .hero-bars-compact{
+      display:flex!important;
+      flex-direction:column!important;
+      gap:3px!important;
+      width:100%!important;
+      min-width:0!important;
+      margin:0!important;
+    }
+    .hero-bar-row{
+      display:grid!important;
+      grid-template-columns:minmax(0,1fr) auto!important;
+      align-items:center!important;
+      gap:6px!important;
+      width:100%!important;
+      min-width:0!important;
+      height:15px!important;
+    }
+    .hero-bar-bg{
+      position:relative!important;
+      width:100%!important;
+      height:10px!important;
+      border-radius:999px!important;
+      overflow:hidden!important;
+      border:1px solid rgba(255,255,255,.06)!important;
+      background:rgba(255,255,255,.08)!important;
+      margin:0!important;
+    }
+    .hero-bar-bg .bar-fill-hp,
+    .hero-bar-bg .bar-fill-exp{
+      position:absolute!important;
+      inset:0 auto 0 0!important;
+      height:100%!important;
+      border-radius:inherit!important;
+    }
+    .hero-bar-value{
+      position:static!important;
+      transform:none!important;
+      min-width:58px!important;
+      text-align:right!important;
+      white-space:nowrap!important;
+      color:#fff!important;
+      font-family:'JetBrains Mono',monospace!important;
+      font-size:12px!important;
+      font-weight:900!important;
+      line-height:1!important;
+      text-shadow:0 1px 4px rgba(0,0,0,.9)!important;
+      pointer-events:none!important;
+    }
+    .hero-exp-value{font-size:11px!important;color:#ddd6fe!important;}
+    .hero-exp-bg{height:10px!important;}
+
+    /* BGM dock lives in row 1, never as a separate card */
+    .music-dock{
+      position:relative!important;
+      flex:0 1 auto!important;
+      display:flex!important;
+      align-items:center!important;
+      gap:3px!important;
+      width:auto!important;
+      min-width:0!important;
+      height:28px!important;
+      min-height:28px!important;
+      max-width:190px;
+      margin:0!important;
+      padding:2px 3px!important;
+      border:1px solid rgba(255,255,255,.08)!important;
+      border-radius:8px!important;
+      background:rgba(7,12,24,.72)!important;
+      box-shadow:none!important;
+    }
+    .music-dock-main{
+      display:flex!important;
+      align-items:center!important;
+      gap:4px!important;
+      min-width:0!important;
+      flex:1 1 auto!important;
+    }
+    .music-play-btn,
+    .music-settings-btn{
+      display:inline-flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      padding:0!important;
+      flex:0 0 auto!important;
+      border-radius:6px!important;
+    }
+    .music-play-btn{width:27px!important;height:23px!important;min-width:27px!important;min-height:23px!important;font-size:12px!important;}
+    .music-settings-btn{width:25px!important;height:23px!important;min-width:25px!important;min-height:23px!important;font-size:12px!important;}
+    .music-current{
+      min-width:0!important;
+      max-width:120px!important;
+      overflow:hidden!important;
+      white-space:nowrap!important;
+      text-overflow:ellipsis!important;
+      font-size:10px!important;
+      line-height:1!important;
+      color:var(--cyan)!important;
+    }
+    .music-current b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .music-settings-popover{
+      position:absolute!important;
+      top:calc(100% + 7px)!important;
+      right:0!important;
+      z-index:10000!important;
+      width:min(320px,calc(100vw - 20px))!important;
+    }
+
+    /* Mobile final */
+    @media (max-width:768px){
+      .hero-header{
+        height:94px!important;
+        min-height:94px!important;
+        max-height:94px!important;
+        padding:8px 10px!important;
+        grid-template-columns:52px minmax(0,1fr)!important;
+        gap:8px!important;
+        align-items:center!important;
+        overflow:visible!important;
+      }
+      .avatar-wrapper{
+        width:52px!important;
+        height:52px!important;
+        min-width:52px!important;
+        min-height:52px!important;
+        max-width:52px!important;
+        max-height:52px!important;
+        aspect-ratio:1/1!important;
+        flex:0 0 52px!important;
+        flex-shrink:0!important;
+        padding:2px!important;
+        margin:0!important;
+        border-radius:50%!important;
+        overflow:hidden!important;
+      }
+      .avatar-img{
+        width:100%!important;
+        height:100%!important;
+        min-width:0!important;
+        min-height:0!important;
+        max-width:100%!important;
+        max-height:100%!important;
+        aspect-ratio:1/1!important;
+        flex:0 0 auto!important;
+        flex-shrink:0!important;
+        border-radius:50%!important;
+        object-fit:cover!important;
+        object-position:center center!important;
+      }
+      .avatar-badge{display:none!important;}
+
+      .hero-header .hero-info{
+        height:78px!important;
+        display:grid!important;
+        grid-template-rows:25px 20px 1fr!important;
+        gap:3px!important;
+        align-content:center!important;
+        min-width:0!important;
+      }
+      .hero-title-row{
+        height:25px!important;
+        margin:0!important;
+        gap:5px!important;
+        align-items:center!important;
+      }
+      .hero-title-main{
+        gap:5px!important;
+        min-width:0!important;
+      }
+      .hero-name{
+        max-width:96px!important;
+        font-size:15px!important;
+      }
+      .hero-level-badge{
+        min-width:42px!important;
+        height:22px!important;
+        padding:2px 6px!important;
+        font-size:9px!important;
+      }
+      .hero-level-badge b{font-size:12px!important;}
+
+      /* Mini BGM: play + short title + gear */
+      .music-dock{
+        height:24px!important;
+        min-height:24px!important;
+        max-width:112px!important;
+        padding:1px 3px!important;
+        border-radius:7px!important;
+      }
+      .music-play-btn{width:23px!important;height:21px!important;min-width:23px!important;min-height:21px!important;font-size:11px!important;}
+      .music-settings-btn{width:23px!important;height:21px!important;min-width:23px!important;min-height:21px!important;font-size:11px!important;}
+      .music-play-label,
+      .music-current-prefix,
+      .music-current-icon{display:none!important;}
+      .music-current{max-width:60px!important;font-size:8.5px!important;}
+
+      .music-settings-popover{
+        position:fixed!important;
+        left:10px!important;
+        right:10px!important;
+        top:auto!important;
+        bottom:74px!important;
+        width:auto!important;
+        max-width:none!important;
+        max-height:70vh!important;
+        overflow:auto!important;
+      }
+
+      .compact-resource-bar{
+        height:20px!important;
+        grid-template-columns:repeat(4,minmax(0,1fr))!important;
+        gap:2px!important;
+        margin:0!important;
+      }
+      .compact-resource-bar .badge{
+        height:20px!important;
+        min-height:20px!important;
+        border:0!important;
+        border-radius:4px!important;
+        background:transparent!important;
+        box-shadow:none!important;
+        padding:0 2px!important;
+        font-size:9px!important;
+        line-height:1!important;
+        gap:2px!important;
+      }
+
+      .hero-bars-compact{gap:3px!important;margin:0!important;}
+      .hero-bar-row{
+        height:12px!important;
+        min-height:12px!important;
+        grid-template-columns:minmax(0,1fr) auto!important;
+        gap:5px!important;
+      }
+      .hero-bar-bg,
+      .hero-exp-bg{
+        height:6px!important;
+        min-height:6px!important;
+        border-radius:3px!important;
+      }
+      .hero-bar-value{
+        position:static!important;
+        transform:none!important;
+        min-width:48px!important;
+        font-size:10.5px!important;
+        line-height:1!important;
+      }
+      .hero-exp-value{font-size:10px!important;}
+    }
+
+    @media (max-width:380px){
+      .hero-header{
+        height:94px!important;
+        min-height:94px!important;
+        max-height:94px!important;
+        padding-left:8px!important;
+        padding-right:8px!important;
+        grid-template-columns:52px minmax(0,1fr)!important;
+        gap:6px!important;
+      }
+      .hero-name{max-width:84px!important;font-size:14px!important;}
+      .music-dock{max-width:104px!important;}
+      .music-current{max-width:52px!important;font-size:8px!important;}
+      .compact-resource-bar .badge{font-size:8.5px!important;padding-inline:1px!important;}
+      .hero-bar-value{min-width:45px!important;font-size:10px!important;}
+    }
+
 </style>
 </head>
 <body>
@@ -1181,18 +1549,53 @@
   <div class="container">
     <div class="top-shell">
     <!-- Header Hero Profile -->
-    <div class="card hero-header">
+    <div class="card hero-header" id="heroProfileHeader">
       <div class="avatar-wrapper" onclick="openAvatarModal()" title="Nhấn để đổi ảnh đại diện">
         <img id="avatarDisplay" class="avatar-img" src="https://api.dicebear.com/7.x/bottts/svg?seed=hero" alt="Avatar">
         <div class="avatar-badge">Đổi Ảnh</div>
       </div>
+
       <div class="hero-info">
+        <!-- Row 1: Name + Level + compact BGM -->
         <div class="hero-title-row">
           <div class="hero-title-main">
             <h2 class="hero-name"><span>🗡️ <span id="heroName">Hiệp Sĩ</span></span></h2>
             <span class="hero-level-badge">Lv.<b id="lvlDisplay">1</b></span>
           </div>
+
+          <div class="music-dock" id="musicDock">
+            <div class="music-dock-main">
+              <button class="secondary music-play-btn" onclick="toggleYtMusic()" id="ytPlayBtn" aria-label="Phát hoặc tạm dừng nhạc" type="button">
+                <span id="ytPlayGlyph">▶️</span><span class="music-play-label">Phát</span>
+              </button>
+              <div class="music-current" title="Bài hát đang phát">
+                <span class="music-current-icon">🎵</span>
+                <span class="music-current-prefix">Đang phát:</span>
+                <b id="currentSongTitle">Rừng Ma Thuật</b>
+              </div>
+            </div>
+
+            <button class="secondary music-settings-btn" id="musicSettingsBtn" onclick="toggleMusicSettings(event)" aria-label="Cài đặt nhạc" type="button">⚙️</button>
+
+            <div class="music-settings-popover" id="musicSettingsPopover" aria-hidden="true">
+              <div class="music-popover-title">
+                <span>🎵 Điều khiển BGM</span>
+                <button class="secondary" type="button" onclick="toggleMusicSettings(event)" aria-label="Đóng">✕</button>
+              </div>
+              <div class="music-popover-row">
+                <input type="text" id="ytUrlInput" placeholder="Dán link YouTube..." aria-label="Link YouTube">
+                <button class="secondary" type="button" onclick="loadNewYtSong()">Tải Nhạc</button>
+              </div>
+              <div class="music-popover-volume">
+                <span>🔊</span>
+                <input type="range" id="ytVolumeSlider" min="0" max="100" value="50" oninput="setYtVolume(this.value)">
+                <span id="ytVolLabel">50%</span>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Row 2: compact resources -->
         <div class="stat-bar compact-resource-bar" aria-label="Tài nguyên nhanh">
           <div class="badge" style="color:var(--gold);" title="Vàng">🪙 <span id="coinDisplay">0</span> Vàng</div>
           <div class="badge" style="color:var(--orange);" title="Chuỗi ngày">🔥 <span id="streakDisplay">0</span> ngày</div>
@@ -1200,44 +1603,27 @@
           <div class="badge" style="color:var(--cyan);" title="Lượt đánh">⚔️ Lượt đánh: <span id="bossTokens">0</span></div>
         </div>
 
+        <!-- Row 3: HP + EXP with values outside the bars -->
         <div class="hero-bars-compact">
-          <div class="hero-hp-line">
-            <div class="hero-bar-bg"><div id="heroHpBar" class="bar-fill-hp"></div><span class="hero-bar-value"><span id="heroHpDisplay">350</span>/<span id="heroMaxHpDisplay">350</span></span></div>
+          <div class="hero-hp-line hero-bar-row">
+            <div class="hero-bar-bg">
+              <div id="heroHpBar" class="bar-fill-hp"></div>
+            </div>
+            <span class="hero-bar-value" aria-label="HP">
+              <span id="heroHpDisplay">350</span>/<span id="heroMaxHpDisplay">350</span>
+            </span>
           </div>
-          <div class="hero-exp-line">
-            <div class="hero-bar-bg hero-exp-bg"><div id="expBar" class="bar-fill-exp"></div><span class="hero-bar-value hero-exp-value"><span id="expDisplay">0</span>/<span id="maxExpDisplay">100</span></span></div>
-          </div>
-        </div>
 
-        <!-- Music dock: PC = thanh mỏng, Mobile = widget mini + pop-up -->
-        <div class="music-dock" id="musicDock">
-          <div class="music-dock-main">
-            <button class="secondary music-play-btn" onclick="toggleYtMusic()" id="ytPlayBtn" aria-label="Phát hoặc tạm dừng nhạc">
-              <span id="ytPlayGlyph">▶️</span><span class="music-play-label">Phát</span>
-            </button>
-            <div class="music-current" title="Bài hát đang phát">
-              <span class="music-current-icon">🎵</span>
-              <span class="music-current-prefix">Đang phát:</span>
-              <b id="currentSongTitle">Rừng Ma Thuật</b>
+          <div class="hero-exp-line hero-bar-row">
+            <div class="hero-bar-bg hero-exp-bg">
+              <div id="expBar" class="bar-fill-exp"></div>
             </div>
-          </div>
-          <button class="secondary music-settings-btn" id="musicSettingsBtn" onclick="toggleMusicSettings(event)" aria-label="Cài đặt nhạc">⚙️</button>
-          <div class="music-settings-popover" id="musicSettingsPopover" aria-hidden="true">
-            <div class="music-popover-title"><span>🎵 Điều khiển BGM</span><button class="secondary" type="button" onclick="toggleMusicSettings(event)" aria-label="Đóng">✕</button></div>
-            <div class="music-popover-row">
-              <input type="text" id="ytUrlInput" placeholder="Dán link YouTube..." aria-label="Link YouTube">
-              <button class="secondary" type="button" onclick="loadNewYtSong()">Tải Nhạc</button>
-            </div>
-            <div class="music-popover-volume">
-              <span>🔊</span>
-              <input type="range" id="ytVolumeSlider" min="0" max="100" value="50" oninput="setYtVolume(this.value)">
-              <span id="ytVolLabel">50%</span>
-            </div>
+            <span class="hero-bar-value hero-exp-value" aria-label="EXP">
+              <span id="expDisplay">0</span>/<span id="maxExpDisplay">100</span>
+            </span>
           </div>
         </div>
       </div>
-    </div>
-
     </div>
 
     <!-- Five parent navigation groups -->
