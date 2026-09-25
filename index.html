@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BetterLevel - RPG Tasking Universe V10</title>
+  <title>BetterLevel - RPG Tasking Universe V12</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
@@ -192,6 +192,39 @@
       height: 100%; background: linear-gradient(90deg, #22c55e, #10b981);
       width: 100%; transition: width 0.4s;
     }
+
+    /* Five parent groups + nested sub-tabs */
+    .group-page { width:100%; min-width:0; }
+    .group-page[style*="display:none"] { display:none!important; }
+    .group-subnav-shell {
+      display:flex; align-items:center; gap:8px; min-width:0; max-width:100%;
+      margin:0 0 8px; padding:5px; overflow-x:auto; scrollbar-width:none;
+      border:1px solid rgba(255,255,255,.08); border-radius:14px;
+      background:rgba(9,14,26,.64); backdrop-filter:blur(14px) saturate(140%);
+    }
+    .group-subnav-shell::-webkit-scrollbar{display:none}
+    .group-subnav-title{
+      flex:0 0 auto; padding:7px 9px; border-right:1px solid rgba(255,255,255,.09);
+      color:#fff; font-size:12px; font-weight:800; white-space:nowrap;
+    }
+    .group-subnav{display:flex; gap:6px; min-width:max-content;}
+    .group-sub-btn{
+      flex:0 0 auto; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.045);
+      color:var(--subtext); padding:7px 11px; border-radius:10px; font-size:11.5px; font-weight:700;
+    }
+    .group-sub-btn.active{
+      color:#fff; border-color:rgba(99,102,241,.55);
+      background:linear-gradient(135deg,rgba(99,102,241,.32),rgba(168,85,247,.24));
+      box-shadow:0 4px 14px rgba(99,102,241,.18);
+    }
+    .group-subpage{width:100%; min-width:0;}
+    .system-substack{display:flex;flex-direction:column;gap:10px;}
+    .system-subtitle{display:flex;align-items:end;justify-content:space-between;gap:12px;padding:3px 2px 1px;}
+    .system-subtitle span{font-size:13px;font-weight:800;color:#fff;}
+    .system-subtitle small{font-size:10px;color:var(--subtext);text-align:right;}
+    .group-page > .tab-page{width:100%;}
+    .desktop-group-nav{display:flex!important;}
+    .desktop-group-nav .tab-btn{flex:1 1 0; justify-content:center; min-width:0;}
 
     /* Tabs */
     .tabs-wrapper {
@@ -780,23 +813,18 @@
       .music-current{font-size:10.5px;gap:4px;}
       .music-settings-btn{width:31px;height:29px;}
       .music-settings-popover{position:fixed;left:9px;right:9px;bottom:calc(68px + env(safe-area-inset-bottom));width:auto;z-index:9999;padding:11px;border-radius:16px;}
-      .mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:5000;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:7px max(7px,env(safe-area-inset-left)) calc(7px + env(safe-area-inset-bottom)) max(7px,env(safe-area-inset-right));background:rgba(7,11,21,.94);border-top:1px solid rgba(255,255,255,.1);backdrop-filter:blur(18px) saturate(160%);box-shadow:0 -10px 30px rgba(0,0,0,.36);}
+      .mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:5000;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;padding:7px max(7px,env(safe-area-inset-left)) calc(7px + env(safe-area-inset-bottom)) max(7px,env(safe-area-inset-right));background:rgba(7,11,21,.94);border-top:1px solid rgba(255,255,255,.1);backdrop-filter:blur(18px) saturate(160%);box-shadow:0 -10px 30px rgba(0,0,0,.36);}
       .mobile-bottom-btn{min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px 2px!important;border:1px solid transparent!important;border-radius:11px!important;background:transparent!important;color:var(--subtext)!important;transform:none!important;font-size:18px!important;}
-      .mobile-bottom-btn small{font-size:9px;font-weight:700;line-height:1.1;}
+      .mobile-bottom-btn small{font-size:8.2px;font-weight:800;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
       .mobile-bottom-btn.active{background:linear-gradient(180deg,rgba(99,102,241,.26),rgba(168,85,247,.18))!important;border-color:rgba(99,102,241,.42)!important;color:#fff!important;}
       .mobile-bottom-btn:active{transform:scale(.96)!important;}
       .tabs-wrapper{display:none!important;}
-      .mobile-sheet-backdrop{position:fixed;inset:0;display:flex;align-items:flex-end;justify-content:center;background:rgba(2,6,16,.58);backdrop-filter:blur(5px);z-index:4900;opacity:0;pointer-events:none;transition:.2s;}
-      .mobile-sheet-backdrop.open{opacity:1;pointer-events:auto;}
-      .mobile-more-sheet{width:100%;max-width:700px;padding:12px 12px calc(14px + env(safe-area-inset-bottom));border-radius:18px 18px 0 0;border:1px solid rgba(255,255,255,.1);border-bottom:0;background:linear-gradient(180deg,#11192b,#0b1220);box-shadow:0 -20px 55px rgba(0,0,0,.48);transform:translateY(14px);transition:.22s;}
-      .mobile-sheet-backdrop.open .mobile-more-sheet{transform:translateY(0);} 
-      .mobile-more-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;}
-      .mobile-more-head b{display:block;font-size:14px;}
-      .mobile-more-head span{display:block;margin-top:2px;font-size:10px;color:var(--subtext);} 
-      .mobile-more-head button{width:31px;height:31px;padding:0!important;}
-      .mobile-more-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;}
-      .mobile-more-grid button{min-height:64px;display:flex;flex-direction:column;gap:5px;justify-content:center;padding:8px 5px!important;border:1px solid rgba(255,255,255,.08)!important;background:rgba(255,255,255,.045)!important;font-size:18px!important;border-radius:12px!important;}
-      .mobile-more-grid button span{font-size:9.5px;color:var(--text);font-weight:700;}
+      .desktop-group-nav{display:none!important;}
+      .group-subnav-shell{margin-bottom:7px;padding:4px;border-radius:12px;position:sticky;top:4px;z-index:260;}
+      .group-subnav-title{display:none;}
+      .group-subnav{width:100%;overflow-x:auto;gap:5px;}
+      .group-sub-btn{font-size:10px;padding:7px 9px;border-radius:9px;}
+      .group-page{padding-bottom:2px;}
       .task-form{gap:7px!important;}
       .task-form-main{grid-template-columns:minmax(0,1fr)!important;gap:6px!important;}
       .task-rank-wrap{grid-template-columns:minmax(0,1fr) auto!important;}
@@ -926,76 +954,36 @@
 
     </div>
 
-    <!-- Desktop navigation -->
-    <!-- Mobile navigation: 4 mục chính + drawer -->
-    <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Điều hướng chính trên điện thoại">
-      <button class="mobile-bottom-btn" data-mobile-tab="tab-tasks" onclick="switchTab(null,'tab-tasks')"><span>📋</span><small>Nhiệm Vụ</small></button>
-      <button class="mobile-bottom-btn active" data-mobile-tab="tab-character" onclick="switchTab(null,'tab-character')"><span>👤</span><small>Nhân Vật</small></button>
-      <button class="mobile-bottom-btn" data-mobile-tab="tab-map" onclick="switchTab(null,'tab-map')"><span>🗺️</span><small>Bản Đồ</small></button>
-      <button class="mobile-bottom-btn" data-mobile-tab="tab-shop" onclick="switchTab(null,'tab-shop')"><span>🏪</span><small>Shop</small></button>
-      <button class="mobile-bottom-btn mobile-more-btn" data-mobile-more="true" onclick="toggleMobileMore(event)"><span>☰</span><small>Thêm</small></button>
+    <!-- Five parent navigation groups -->
+    <nav class="desktop-group-nav tabs-wrapper" aria-label="Điều hướng khu vực chính">
+      <div class="tabs">
+        <button class="tab-btn active" data-group-tab="group-quest" onclick="switchGroup('group-quest','tab-tasks',event)">📋 NHIỆM VỤ</button>
+        <button class="tab-btn" data-group-tab="group-hero" onclick="switchGroup('group-hero','tab-character',event)">👤 CHIẾN BINH</button>
+        <button class="tab-btn" data-group-tab="group-battle" onclick="switchGroup('group-battle','tab-map',event)">🗺️ VIỄN CHINH</button>
+        <button class="tab-btn" data-group-tab="group-market" onclick="switchGroup('group-market','tab-shop',event)">🏪 THƯƠNG HỘI</button>
+        <button class="tab-btn" data-group-tab="group-system" onclick="switchGroup('group-system','tab-system-map',event)">⚙️ HỆ THỐNG</button>
+      </div>
     </nav>
 
-    <div class="mobile-sheet-backdrop" id="mobileMoreBackdrop" onclick="handleMobileMoreBackdrop(event)">
-      <div class="mobile-more-sheet" role="dialog" aria-modal="true" aria-label="Các khu vực khác">
-        <div class="mobile-more-head"><div><b>☰ Khu Vực Khác</b><span>Mở các tính năng ít dùng hơn</span></div><button class="secondary" onclick="closeMobileMore()" aria-label="Đóng">✕</button></div>
-        <div class="mobile-more-grid">
-          <button onclick="switchTab(null,'tab-enhance')">💎<span>Cường Hóa</span></button>
-          <button onclick="switchTab(null,'tab-pomodoro')">🍅<span>Pomodoro</span></button>
-          <button onclick="switchTab(null,'tab-gacha')">🎰<span>Gacha</span></button>
-          <button onclick="switchTab(null,'tab-analytics')">📅<span>Lịch & Thống Kê</span></button>
-          <button onclick="switchTab(null,'tab-inventory')">🎒<span>Túi Đồ</span></button>
-          <button onclick="switchTab(null,'tab-forge')">🔨<span>Xưởng Rèn</span></button>
-          <button onclick="switchTab(null,'tab-settings')">⚙️<span>Cài Đặt & BGM</span></button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Navigation Tabs -->
-    <div class="tabs-wrapper">
-      <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab(event, 'tab-character')">👤 Trang Bị & Nhân Vật</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab-tasks')">📋 Nhiệm Vụ Fantasy</button>
-          <button class="tab-btn" onclick="switchTab(event, 'tab-analytics')">📅 Lịch & Thống Kê</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab-map')">🗺️ Bản Đồ & Boss</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab-enhance')">💎 Cường Hóa Ô Đồ</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab-pomodoro')">🍅 Pomodoro</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab-gacha')">🎰 Gacha</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab-shop')">🏪 Cửa Hàng</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab-inventory')">🎒 Túi Đồ</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab-forge')">🔨 Xưởng Rèn</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab-settings')">⚙️ Cài Đặt & Nhạc BGM</button>
-      </div>
-    </div>
+    <!-- Mobile: exactly 5 parent groups -->
+    <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Điều hướng chính trên điện thoại">
+      <button class="mobile-bottom-btn active" data-mobile-group="group-quest" onclick="switchGroup('group-quest','tab-tasks',event)"><span>📋</span><small>NHIỆM VỤ</small></button>
+      <button class="mobile-bottom-btn" data-mobile-group="group-hero" onclick="switchGroup('group-hero','tab-character',event)"><span>👤</span><small>CHIẾN BINH</small></button>
+      <button class="mobile-bottom-btn" data-mobile-group="group-battle" onclick="switchGroup('group-battle','tab-map',event)"><span>🗺️</span><small>VIỄN CHINH</small></button>
+      <button class="mobile-bottom-btn" data-mobile-group="group-market" onclick="switchGroup('group-market','tab-shop',event)"><span>🏪</span><small>THƯƠNG HỘI</small></button>
+      <button class="mobile-bottom-btn" data-mobile-group="group-system" onclick="switchGroup('group-system','tab-system-map',event)"><span>⚙️</span><small>HỆ THỐNG</small></button>
+    </nav>
 
     <!-- TAB 1: NHÂN VẬT & 9 Ô TRANG BỊ -->
-    <div id="tab-character" class="tab-page">
-      <div class="card">
-        <h3>
-          <span>9 Ô Trang Bị (Nón, Áo, Quần, Giày, Vũ khí, Hóa trang & 3 Vật phẩm)</span>
-          <small style="font-size:12px; color:var(--subtext); font-weight:normal;">Hover xem so sánh, Nhấn để tháo</small>
-        </h3>
-         <div class="gear-grid" id="gearSlotsContainer"></div>
-
-        <div class="rune-panel">
-          <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;">
-            <div>
-              <div style="font-size:15px;font-weight:800;color:#fff;">ᚱ Cổ Ngữ Thần Thoại</div>
-              <div style="font-size:10.5px;color:var(--subtext);margin-top:2px;">Gắn tối đa 4 Cổ Ngữ • Không được trùng cùng một loại • Không cần ảnh, chỉ hiển thị Ký tự / Tên / Buff.</div>
-            </div>
-            <span class="badge" style="color:var(--gold);">🎟️ Gacha: <span id="runePullPityDisplay">0</span>/100</span>
-          </div>
-          <div id="runeSlotsContainer" class="rune-slots"></div>
-          <div style="font-size:11px;color:var(--subtext);margin-top:9px;">Cổ Ngữ đang sở hữu</div>
-          <div id="runeInventory" class="rune-inventory"></div>
-          <div style="font-size:11px;color:var(--gold);font-weight:800;margin-top:10px;">✨ Kết Hợp Cổ Ngữ</div>
-          <div id="runeCombosContainer"></div>
+        <div id="group-quest" class="group-page" style="display:block;">
+      <div class="group-subnav-shell">
+        <div class="group-subnav-title">📋 NHIỆM VỤ<span style="display:block;font-size:9.5px;font-weight:500;color:var(--subtext);margin-top:1px;">Quản lý công việc, lịch sử và tiến độ streak.</span></div>
+        <div class="group-subnav" role="tablist" aria-label="📋 NHIỆM VỤ sub-tabs">
+          <button class="group-sub-btn active" data-subtab="tab-tasks" onclick="switchSubTab('group-quest','tab-tasks',event)">📋 Nhiệm Vụ Fantasy</button>
+          <button class="group-sub-btn" data-subtab="tab-analytics" onclick="switchSubTab('group-quest','tab-analytics',event)">📅 Lịch & Thống Kê</button>
         </div>
-       </div>
-     </div>
-
-    <!-- TAB 2: NHIỆM VỤ 5 CẤP ĐỘ FANTASY -->
-    <div id="tab-tasks" class="tab-page" style="display:none;">
+      </div>
+<div id="tab-tasks" class="tab-page group-subpage" style="display:block;">
       <div class="card">
         <h3>📋 Bảng Tiếp Nhận Nhiệm Vụ Fantasy</h3>
         <div class="task-form">
@@ -1055,9 +1043,7 @@
         </div>
        </div>
      </div>
-
-    <!-- TAB 3: LỊCH & THỐNG KÊ NHIỆM VỤ -->
-    <div id="tab-analytics" class="tab-page" style="display:none;">
+<div id="tab-analytics" class="tab-page group-subpage" style="display:none;">
       <div class="card">
         <h3>📅 Lịch Hoàn Thành & Thống Kê Nhiệm Vụ</h3>
         <p style="font-size:12px; color:var(--subtext); margin-bottom:12px;">
@@ -1096,9 +1082,89 @@
         </div>
       </div>
     </div>
+    </div>
 
-    <!-- TAB 3: BẢN ĐỒ & SĂN BOSS -->
-    <div id="tab-map" class="tab-page" style="display:none;">
+    <div id="group-hero" class="group-page" style="display:none;">
+      <div class="group-subnav-shell">
+        <div class="group-subnav-title">👤 CHIẾN BINH<span style="display:block;font-size:9.5px;font-weight:500;color:var(--subtext);margin-top:1px;">Trang bị đang mặc, túi đồ và cường hóa.</span></div>
+        <div class="group-subnav" role="tablist" aria-label="👤 CHIẾN BINH sub-tabs">
+          <button class="group-sub-btn" data-subtab="tab-character" onclick="switchSubTab('group-hero','tab-character',event)">👤 Trang Bị Đang Mặc</button>
+          <button class="group-sub-btn" data-subtab="tab-inventory" onclick="switchSubTab('group-hero','tab-inventory',event)">🎒 Túi Đồ</button>
+          <button class="group-sub-btn" data-subtab="tab-enhance" onclick="switchSubTab('group-hero','tab-enhance',event)">💎 Cường Hóa Ô Đồ</button>
+        </div>
+      </div>
+<div id="tab-character" class="tab-page group-subpage">
+      <div class="card">
+        <h3>
+          <span>9 Ô Trang Bị (Nón, Áo, Quần, Giày, Vũ khí, Hóa trang & 3 Vật phẩm)</span>
+          <small style="font-size:12px; color:var(--subtext); font-weight:normal;">Hover xem so sánh, Nhấn để tháo</small>
+        </h3>
+         <div class="gear-grid" id="gearSlotsContainer"></div>
+
+        <div class="rune-panel">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;">
+            <div>
+              <div style="font-size:15px;font-weight:800;color:#fff;">ᚱ Cổ Ngữ Thần Thoại</div>
+              <div style="font-size:10.5px;color:var(--subtext);margin-top:2px;">Gắn tối đa 4 Cổ Ngữ • Không được trùng cùng một loại • Không cần ảnh, chỉ hiển thị Ký tự / Tên / Buff.</div>
+            </div>
+            <span class="badge" style="color:var(--gold);">🎟️ Gacha: <span id="runePullPityDisplay">0</span>/100</span>
+          </div>
+          <div id="runeSlotsContainer" class="rune-slots"></div>
+          <div style="font-size:11px;color:var(--subtext);margin-top:9px;">Cổ Ngữ đang sở hữu</div>
+          <div id="runeInventory" class="rune-inventory"></div>
+          <div style="font-size:11px;color:var(--gold);font-weight:800;margin-top:10px;">✨ Kết Hợp Cổ Ngữ</div>
+          <div id="runeCombosContainer"></div>
+        </div>
+       </div>
+     </div>
+<div id="tab-inventory" class="tab-page group-subpage" style="display:none;">
+      <div class="card">
+        <h3>🎒 Túi Đồ Nhân Vật</h3>
+        <p style="font-size:12.5px; color:var(--gold); margin-bottom:8px;">* Bán trang bị nhận lại EXP = 50% giá Vàng của trang bị.</p>
+        <h4 style="margin: 10px 0 6px; color:var(--gold); font-size:14px;">📦 Rương Báu, Dược Phẩm & Thạch Anh</h4>
+        <div class="item-grid" id="invConsumables"></div>
+
+        <h4 style="margin: 22px 0 6px; color:var(--accent); font-size:14px;">🛡️ Trang Bị Trong Kho (Nhấn để Mặc hoặc Bán)</h4>
+        <div class="item-grid" id="invEquipment"></div>
+      </div>
+    </div>
+<div id="tab-enhance" class="tab-page group-subpage" style="display:none;">
+      <div class="card">
+        <h3>
+          <span>💎 Cường Hóa Ô Trang Bị (Slot Enhancement 0 -> +10)</span>
+          <div style="display:flex; gap:8px; font-size:12px;">
+            <span class="badge">🔹 Sơ cấp: <b id="cntQuartzBasic">0</b></span>
+            <span class="badge">🔷 Tinh khiết: <b id="cntQuartzPure">0</b></span>
+            <span class="badge">🔮 Hỗn độn: <b id="cntQuartzChaos">0</b></span>
+          </div>
+        </h3>
+        <p style="font-size:12px; color:var(--subtext); margin-bottom:12px;">
+          * Cường hóa trực tiếp 9 ô trang bị nhân vật. Khi thay đồ, cấp ô vẫn giữ nguyên vĩnh viễn. Thất bại không bị tụt cấp.
+        </p>
+
+        <!-- Lò Luyện & Ghép Thạch Anh -->
+        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px; margin-bottom:14px;">
+          <h4 style="font-size:13px; color:var(--cyan); margin-bottom:6px;">⚗️ Xưởng Luyện Thạch Anh (Ghép Đá Cấp Cao)</h4>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="secondary" onclick="craftQuartz('pure')">Ghép 5 Sơ Cấp + 50 Gold ➔ 1 Tinh Khiết</button>
+            <button class="secondary" onclick="craftQuartz('chaos')">Ghép 4 Tinh Khiết + 200 Gold ➔ 1 Hỗn Độn</button>
+          </div>
+        </div>
+
+        <div class="enhance-grid" id="enhanceGridContainer"></div>
+      </div>
+    </div>
+    </div>
+
+    <div id="group-battle" class="group-page" style="display:none;">
+      <div class="group-subnav-shell">
+        <div class="group-subnav-title">🗺️ VIỄN CHINH<span style="display:block;font-size:9.5px;font-weight:500;color:var(--subtext);margin-top:1px;">Săn Boss, phó bản và tích lũy tài nguyên bằng Pomodoro.</span></div>
+        <div class="group-subnav" role="tablist" aria-label="🗺️ VIỄN CHINH sub-tabs">
+          <button class="group-sub-btn" data-subtab="tab-map" onclick="switchSubTab('group-battle','tab-map',event)">🗺️ Săn Boss & Phó Bản</button>
+          <button class="group-sub-btn" data-subtab="tab-pomodoro" onclick="switchSubTab('group-battle','tab-pomodoro',event)">🍅 Đồng Hồ Pomodoro</button>
+        </div>
+      </div>
+<div id="tab-map" class="tab-page group-subpage" style="display:none;">
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <h3>🗺️ Phó Bản: <span id="mapTitleDisplay" style="color:var(--gold);">Ải Rừng Hắc Ám</span></h3>
@@ -1136,37 +1202,7 @@
         </div>
       </div>
     </div>
-
-    <!-- TAB 4: CƯỜNG HÓA Ô TRANG BỊ & GHÉP ĐÁ -->
-    <div id="tab-enhance" class="tab-page" style="display:none;">
-      <div class="card">
-        <h3>
-          <span>💎 Cường Hóa Ô Trang Bị (Slot Enhancement 0 -> +10)</span>
-          <div style="display:flex; gap:8px; font-size:12px;">
-            <span class="badge">🔹 Sơ cấp: <b id="cntQuartzBasic">0</b></span>
-            <span class="badge">🔷 Tinh khiết: <b id="cntQuartzPure">0</b></span>
-            <span class="badge">🔮 Hỗn độn: <b id="cntQuartzChaos">0</b></span>
-          </div>
-        </h3>
-        <p style="font-size:12px; color:var(--subtext); margin-bottom:12px;">
-          * Cường hóa trực tiếp 9 ô trang bị nhân vật. Khi thay đồ, cấp ô vẫn giữ nguyên vĩnh viễn. Thất bại không bị tụt cấp.
-        </p>
-
-        <!-- Lò Luyện & Ghép Thạch Anh -->
-        <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px; margin-bottom:14px;">
-          <h4 style="font-size:13px; color:var(--cyan); margin-bottom:6px;">⚗️ Xưởng Luyện Thạch Anh (Ghép Đá Cấp Cao)</h4>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="secondary" onclick="craftQuartz('pure')">Ghép 5 Sơ Cấp + 50 Gold ➔ 1 Tinh Khiết</button>
-            <button class="secondary" onclick="craftQuartz('chaos')">Ghép 4 Tinh Khiết + 200 Gold ➔ 1 Hỗn Độn</button>
-          </div>
-        </div>
-
-        <div class="enhance-grid" id="enhanceGridContainer"></div>
-      </div>
-    </div>
-
-    <!-- TAB 5: POMODORO -->
-    <div id="tab-pomodoro" class="tab-page" style="display:none;">
+<div id="tab-pomodoro" class="tab-page group-subpage" style="display:none;">
       <div class="card" style="text-align:center; padding:30px 20px;">
         <div style="font-size:13px; font-weight:700; color:var(--primary); margin-bottom:10px;" id="pomoPhase">
           🔥 HIỆP TẬP TRUNG (NHẬN EXP & VÀNG & 🍅)
@@ -1183,69 +1219,18 @@
         </p>
       </div>
     </div>
-
-    <!-- TAB 6: GACHA -->
-    <div id="tab-gacha" class="tab-page" style="display:none;">
-      <div class="card">
-        <div class="gacha-banner" id="gachaBanner">
-          <div class="gacha-banner-content">
-            <div style="font-size:11px;color:var(--gold);font-weight:900;letter-spacing:1px;">ANCIENT RUNE SUMMON</div>
-            <h3 style="font-size:26px;margin:3px 0 4px;">🎰 Gacha Cổ Ngữ</h3>
-            <div style="font-size:12px;color:#cbd5e1;max-width:650px;">Quay bằng 🎟️ Vé Gacha. Mỗi lượt có cơ hội nhận vật phẩm, trang bị quý hiếm hoặc Cổ Ngữ Thần Thoại.</div>
-          </div>
-        </div>
-
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;">
-          <span class="gacha-ticket-pill">🎟️ Vé Gacha: <b id="gachaTicketCount">0</b></span>
-          <span class="badge">🎯 Pity Cổ Ngữ: <b id="gachaPityDisplay">0</b>/100</span>
-          <span class="badge">🔁 Tổng lượt quay: <b id="gachaTotalPullsDisplay">0</b></span>
-        </div>
-
-        <div class="gacha-pulls">
-          <div class="gacha-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-              <div><b style="font-size:15px;">Bảng Tỷ Lệ Gacha</b><div style="font-size:10.5px;color:var(--subtext);margin-top:2px;">Pity: lượt thứ 100 chắc chắn ra 1 Cổ Ngữ.</div></div>
-            </div>
-            <div style="margin-top:12px;">
-              <div class="gacha-rate-row"><span>⚪</span><span>Common</span><b>55%</b></div>
-              <div class="gacha-rate-track"><div class="gacha-rate-fill" style="width:55%;background:var(--rarity-common);"></div></div>
-              <div class="gacha-rate-row"><span>🔵</span><span>Rare</span><b>28%</b></div>
-              <div class="gacha-rate-track"><div class="gacha-rate-fill" style="width:28%;background:var(--rarity-rare);"></div></div>
-              <div class="gacha-rate-row"><span>🟣</span><span>Epic</span><b>12.5%</b></div>
-              <div class="gacha-rate-track"><div class="gacha-rate-fill" style="width:12.5%;background:var(--rarity-epic);"></div></div>
-              <div class="gacha-rate-row"><span>🟡</span><span>Legendary</span><b>4%</b></div>
-              <div class="gacha-rate-track"><div class="gacha-rate-fill" style="width:4%;background:var(--rarity-legendary);"></div></div>
-              <div class="gacha-rate-row"><span>🔴</span><span>Rune</span><b>0.5%</b></div>
-              <div class="gacha-rate-track"><div class="gacha-rate-fill" style="width:.5%;background:var(--rarity-mythic);"></div></div>
-            </div>
-          </div>
-
-          <div class="gacha-card">
-            <b style="font-size:15px;">🎟️ Vé Gacha</b>
-            <p style="font-size:11px;color:var(--subtext);margin:6px 0 10px;">Giá Shop: <b style="color:var(--gold);">150 Vàng / vé</b>. Rương có cơ hội nhỏ rơi vé.</p>
-            <button class="purple gacha-spin" style="width:100%;" onclick="pullGacha()">🎰 QUAY 1 LƯỢT</button>
-            <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;">
-              <span class="badge">⚪ 55%: đá / thuốc / vàng</span>
-              <span class="badge">🔵 28%: buff / đá</span>
-              <span class="badge">🟣 12.5%: đá / rương / Epic</span>
-              <span class="badge">🟡 4%: Phoenix / Diamond / đồ quý</span>
-              <span class="badge">🔴 0.5%: 1/16 Rune</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:12px;background:rgba(255,255,255,.025);">
-          <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;">
-            <div><b>🖼️ Ảnh bìa Gacha</b><div style="font-size:10.5px;color:var(--subtext);margin-top:2px;">Dán URL ảnh để đổi banner Gacha.</div></div>
-            <button class="secondary" onclick="resetGachaCover()">Ảnh mặc định</button>
-          </div>
-          <div style="display:flex;gap:7px;margin-top:9px;"><input id="gachaCoverInput" type="text" placeholder="https://..." style="flex:1;"><button onclick="saveGachaCover()">Lưu ảnh</button></div>
-        </div>
-      </div>
     </div>
 
-    <!-- TAB 6: CỬA HÀNG -->
-    <div id="tab-shop" class="tab-page" style="display:none;">
+    <div id="group-market" class="group-page" style="display:none;">
+      <div class="group-subnav-shell">
+        <div class="group-subnav-title">🏪 THƯƠNG HỘI<span style="display:block;font-size:9.5px;font-weight:500;color:var(--subtext);margin-top:1px;">Mua sắm, rèn trang bị và quay Gacha Cổ Ngữ.</span></div>
+        <div class="group-subnav" role="tablist" aria-label="🏪 THƯƠNG HỘI sub-tabs">
+          <button class="group-sub-btn" data-subtab="tab-shop" onclick="switchSubTab('group-market','tab-shop',event)">🏪 Cửa Hàng Vật Phẩm</button>
+          <button class="group-sub-btn" data-subtab="tab-forge" onclick="switchSubTab('group-market','tab-forge',event)">🔨 Xưởng Rèn</button>
+          <button class="group-sub-btn" data-subtab="tab-gacha" onclick="switchSubTab('group-market','tab-gacha',event)">🎰 Gacha Cổ Ngữ</button>
+        </div>
+      </div>
+<div id="tab-shop" class="tab-page group-subpage" style="display:none;">
       <div class="card">
         <h3>🏪 Cửa Hàng Vật Phẩm & Trang Bị</h3>
         <div class="shop-section-tabs" style="display:flex; gap:8px; margin:10px 0 14px; padding:5px; background:rgba(255,255,255,0.035); border:1px solid rgba(255,255,255,0.08); border-radius:14px;">
@@ -1298,22 +1283,7 @@
         </div>
       </div>
     </div>
-
-    <!-- TAB 7: TÚI ĐỒ (INVENTORY) -->
-    <div id="tab-inventory" class="tab-page" style="display:none;">
-      <div class="card">
-        <h3>🎒 Túi Đồ Nhân Vật</h3>
-        <p style="font-size:12.5px; color:var(--gold); margin-bottom:8px;">* Bán trang bị nhận lại EXP = 50% giá Vàng của trang bị.</p>
-        <h4 style="margin: 10px 0 6px; color:var(--gold); font-size:14px;">📦 Rương Báu, Dược Phẩm & Thạch Anh</h4>
-        <div class="item-grid" id="invConsumables"></div>
-
-        <h4 style="margin: 22px 0 6px; color:var(--accent); font-size:14px;">🛡️ Trang Bị Trong Kho (Nhấn để Mặc hoặc Bán)</h4>
-        <div class="item-grid" id="invEquipment"></div>
-      </div>
-    </div>
-
-    <!-- TAB 8: XƯỞNG RÈN -->
-    <div id="tab-forge" class="tab-page" style="display:none;">
+<div id="tab-forge" class="tab-page group-subpage" style="display:none;">
       <div class="card">
         <h3>🔨 Xưởng Rèn Cổ Đại (Trang bị rèn xong ĐĂNG BÁN CỐ ĐỊNH ở Shop)</h3>
         <p style="font-size:12.5px; color:var(--subtext); margin-bottom:12px;">* Rèn xong món đồ sẽ được lưu cố định trong Cửa Hàng để bạn có thể mua nhiều lần.</p>
@@ -1418,36 +1388,80 @@
         <button style="margin-top:16px; width:100%; padding:12px;" class="purple" onclick="craftEquipmentToShop()">🔨 Rèn & Niêm Yết Cố Định Lên Shop</button>
       </div>
     </div>
-
-    <!-- TAB 9: CÀI ĐẶT & QUẢN LÝ PLAYLIST BGM YOUTUBE -->
-    <div id="tab-settings" class="tab-page" style="display:none;">
-      <div style="display:flex; flex-direction:column; gap:16px;">
-        
-        <!-- CRUD Playlist YouTube BGM -->
-        <div class="card">
-          <h3>
-            <span>🎵 Danh Sách Thánh Nhạc BGM (YouTube Iframe)</span>
-            <button onclick="openAddSongModal()" style="font-size:12px;">+ Thêm Bài Mới</button>
-          </h3>
-          <p style="font-size:12px; color:var(--subtext); margin-bottom:8px;">
-            Nhấn "Phát" để chuyển bài tức thì. Bạn có thể tự do Thêm, Sửa, Xoá danh sách bài hát yêu thích.
-          </p>
-          <div style="overflow-x:auto;">
-            <table class="playlist-table">
-              <thead>
-                <tr>
-                  <th>Tên Giai Điệu</th>
-                  <th>Link YouTube</th>
-                  <th>Hành Động</th>
-                </tr>
-              </thead>
-              <tbody id="playlistTableBody"></tbody>
-            </table>
+<div id="tab-gacha" class="tab-page group-subpage" style="display:none;">
+      <div class="card">
+        <div class="gacha-banner" id="gachaBanner">
+          <div class="gacha-banner-content">
+            <div style="font-size:11px;color:var(--gold);font-weight:900;letter-spacing:1px;">ANCIENT RUNE SUMMON</div>
+            <h3 style="font-size:26px;margin:3px 0 4px;">🎰 Gacha Cổ Ngữ</h3>
+            <div style="font-size:12px;color:#cbd5e1;max-width:650px;">Quay bằng 🎟️ Vé Gacha. Mỗi lượt có cơ hội nhận vật phẩm, trang bị quý hiếm hoặc Cổ Ngữ Thần Thoại.</div>
           </div>
         </div>
 
-        <!-- Quản lý Chỉnh sửa Map & Boss -->
-        <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;">
+          <span class="gacha-ticket-pill">🎟️ Vé Gacha: <b id="gachaTicketCount">0</b></span>
+          <span class="badge">🎯 Pity Cổ Ngữ: <b id="gachaPityDisplay">0</b>/100</span>
+          <span class="badge">🔁 Tổng lượt quay: <b id="gachaTotalPullsDisplay">0</b></span>
+        </div>
+
+        <div class="gacha-pulls">
+          <div class="gacha-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+              <div><b style="font-size:15px;">Bảng Tỷ Lệ Gacha</b><div style="font-size:10.5px;color:var(--subtext);margin-top:2px;">Pity: lượt thứ 100 chắc chắn ra 1 Cổ Ngữ.</div></div>
+            </div>
+            <div style="margin-top:12px;">
+              <div class="gacha-rate-row"><span>⚪</span><span>Common</span><b>55%</b></div>
+              <div class="gacha-rate-track"><div class="gacha-rate-fill" style="width:55%;background:var(--rarity-common);"></div></div>
+              <div class="gacha-rate-row"><span>🔵</span><span>Rare</span><b>28%</b></div>
+              <div class="gacha-rate-track"><div class="gacha-rate-fill" style="width:28%;background:var(--rarity-rare);"></div></div>
+              <div class="gacha-rate-row"><span>🟣</span><span>Epic</span><b>12.5%</b></div>
+              <div class="gacha-rate-track"><div class="gacha-rate-fill" style="width:12.5%;background:var(--rarity-epic);"></div></div>
+              <div class="gacha-rate-row"><span>🟡</span><span>Legendary</span><b>4%</b></div>
+              <div class="gacha-rate-track"><div class="gacha-rate-fill" style="width:4%;background:var(--rarity-legendary);"></div></div>
+              <div class="gacha-rate-row"><span>🔴</span><span>Rune</span><b>0.5%</b></div>
+              <div class="gacha-rate-track"><div class="gacha-rate-fill" style="width:.5%;background:var(--rarity-mythic);"></div></div>
+            </div>
+          </div>
+
+          <div class="gacha-card">
+            <b style="font-size:15px;">🎟️ Vé Gacha</b>
+            <p style="font-size:11px;color:var(--subtext);margin:6px 0 10px;">Giá Shop: <b style="color:var(--gold);">150 Vàng / vé</b>. Rương có cơ hội nhỏ rơi vé.</p>
+            <button class="purple gacha-spin" style="width:100%;" onclick="pullGacha()">🎰 QUAY 1 LƯỢT</button>
+            <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;">
+              <span class="badge">⚪ 55%: đá / thuốc / vàng</span>
+              <span class="badge">🔵 28%: buff / đá</span>
+              <span class="badge">🟣 12.5%: đá / rương / Epic</span>
+              <span class="badge">🟡 4%: Phoenix / Diamond / đồ quý</span>
+              <span class="badge">🔴 0.5%: 1/16 Rune</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px;background:rgba(255,255,255,.025);">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;">
+            <div><b>🖼️ Ảnh bìa Gacha</b><div style="font-size:10.5px;color:var(--subtext);margin-top:2px;">Dán URL ảnh để đổi banner Gacha.</div></div>
+            <button class="secondary" onclick="resetGachaCover()">Ảnh mặc định</button>
+          </div>
+          <div style="display:flex;gap:7px;margin-top:9px;"><input id="gachaCoverInput" type="text" placeholder="https://..." style="flex:1;"><button onclick="saveGachaCover()">Lưu ảnh</button></div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div id="group-system" class="group-page" style="display:none;">
+      <div class="group-subnav-shell">
+        <div class="group-subnav-title">⚙️ HỆ THỐNG<span style="display:block;font-size:9.5px;font-weight:500;color:var(--subtext);margin-top:1px;">Cấu hình bản đồ/Boss, BGM, preset và sao lưu dữ liệu.</span></div>
+        <div class="group-subnav" role="tablist" aria-label="⚙️ HỆ THỐNG sub-tabs">
+          <button class="group-sub-btn active" data-subtab="tab-system-map" onclick="switchSubTab('group-system','tab-system-map',event)">🗺️ Map / Boss</button>
+          <button class="group-sub-btn" data-subtab="tab-system-bgm" onclick="switchSubTab('group-system','tab-system-bgm',event)">🎵 BGM & Presets</button>
+          <button class="group-sub-btn" data-subtab="tab-system-backup" onclick="switchSubTab('group-system','tab-system-backup',event)">💾 Sao Lưu</button>
+        </div>
+      </div>
+<div id="tab-system-map" class="tab-page group-subpage" style="display:block;">
+  <div class="system-substack">
+    <div class="system-subtitle"><span>🗺️ Cài Đặt Map / Boss</span><small>Quản lý ải, Boss và hình nền/video của toàn bộ web.</small></div>
+
+<div class="card">
           <h3>🗺️ Quản Lý & Chỉnh Sửa Bản Đồ / Boss</h3>
           <div style="display:flex; gap:8px; margin-bottom:12px;">
             <select id="editMapSelect" onchange="loadMapToEdit(this.value)" style="flex:1;"></select>
@@ -1493,18 +1507,47 @@
             <button class="purple" onclick="createNewMapTemplate()">+ Tạo Ải Mới</button>
           </div>
         </div>
-
-        <!-- Tùy chỉnh Nền thủ công -->
-        <div class="card">
+<div class="card">
           <h3>🖼️ Hình Nền / Video Trang Web</h3>
           <div style="display:flex; gap:8px;">
             <input type="text" id="bgInput" placeholder="Link ảnh (.jpg/.png/.gif) hoặc video (.mp4)..." style="flex:1;">
             <button onclick="applyBg()">Lưu Nền</button>
           </div>
         </div>
+  </div>
+</div>
+<div id="tab-system-bgm" class="tab-page group-subpage" style="display:none;">
+  <div class="system-substack">
+    <div class="system-subtitle"><span>🎵 Nhạc BGM & Presets</span><small>Quản lý danh sách nhạc YouTube và điều khiển BGM.</small></div>
 
-        <!-- Backup -->
-        <div class="card">
+<div class="card">
+          <h3>
+            <span>🎵 Danh Sách Thánh Nhạc BGM (YouTube Iframe)</span>
+            <button onclick="openAddSongModal()" style="font-size:12px;">+ Thêm Bài Mới</button>
+          </h3>
+          <p style="font-size:12px; color:var(--subtext); margin-bottom:8px;">
+            Nhấn "Phát" để chuyển bài tức thì. Bạn có thể tự do Thêm, Sửa, Xoá danh sách bài hát yêu thích.
+          </p>
+          <div style="overflow-x:auto;">
+            <table class="playlist-table">
+              <thead>
+                <tr>
+                  <th>Tên Giai Điệu</th>
+                  <th>Link YouTube</th>
+                  <th>Hành Động</th>
+                </tr>
+              </thead>
+              <tbody id="playlistTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+  </div>
+</div>
+<div id="tab-system-backup" class="tab-page group-subpage" style="display:none;">
+  <div class="system-substack">
+    <div class="system-subtitle"><span>💾 Sao Lưu Dữ Liệu</span><small>Ghi chú chiến lược, xuất dữ liệu và khôi phục bản sao lưu.</small></div>
+
+<div class="card">
           <h3>💾 Quản Lý Sao Lưu Dữ Liệu</h3>
           <textarea id="notesArea" placeholder="Ghi chú chiến lược..." style="width:100%; height:75px; margin: 8px 0;" oninput="saveNotes()"></textarea>
           <div style="display:flex; gap:8px; flex-wrap:wrap;">
@@ -1514,8 +1557,10 @@
             <button class="secondary" onclick="document.getElementById('importFileInput').click()">📤 Khôi Phục JSON</button>
           </div>
         </div>
-      </div>
+  </div>
+</div>
     </div>
+
   </div>
 
   <!-- MODAL ĐỔI AVATAR -->
@@ -3713,53 +3758,74 @@
         '⏱️','HƯỚNG DẪN NHIỆM VỤ');
     }
 
-    function openMobileMore(){
-      const b=document.getElementById('mobileMoreBackdrop'); if(!b)return;
-      b.classList.add('open');
-      document.body.classList.add('mobile-sheet-open');
-    }
-    function closeMobileMore(){
-      const b=document.getElementById('mobileMoreBackdrop'); if(!b)return;
-      b.classList.remove('open');
-      document.body.classList.remove('mobile-sheet-open');
-    }
-    function toggleMobileMore(event){
-      if(event) event.stopPropagation();
-      const b=document.getElementById('mobileMoreBackdrop');
-      if(b && b.classList.contains('open')) closeMobileMore(); else openMobileMore();
-    }
-    function handleMobileMoreBackdrop(e){ if(e.target===e.currentTarget) closeMobileMore(); }
-    function setMobileNavActive(tabId){
-      const primary=['tab-tasks','tab-character','tab-map','tab-shop'];
-      document.querySelectorAll('.mobile-bottom-btn[data-mobile-tab]').forEach(btn=>btn.classList.toggle('active',btn.dataset.mobileTab===tabId));
-      const more=document.querySelector('.mobile-more-btn');
-      if(more) more.classList.toggle('active',!primary.includes(tabId));
+    const TAB_GROUP_MAP = {
+      'tab-tasks': ['group-quest','tab-tasks'],
+      'tab-analytics': ['group-quest','tab-analytics'],
+      'tab-character': ['group-hero','tab-character'],
+      'tab-inventory': ['group-hero','tab-inventory'],
+      'tab-enhance': ['group-hero','tab-enhance'],
+      'tab-map': ['group-battle','tab-map'],
+      'tab-pomodoro': ['group-battle','tab-pomodoro'],
+      'tab-shop': ['group-market','tab-shop'],
+      'tab-forge': ['group-market','tab-forge'],
+      'tab-gacha': ['group-market','tab-gacha'],
+      'tab-settings': ['group-system','tab-system-map'],
+      'tab-system-map': ['group-system','tab-system-map'],
+      'tab-system-bgm': ['group-system','tab-system-bgm'],
+      'tab-system-backup': ['group-system','tab-system-backup']
+    };
+
+    function setMobileNavActive(groupId){
+      document.querySelectorAll('.mobile-bottom-btn[data-mobile-group]').forEach(btn=>{
+        btn.classList.toggle('active', btn.dataset.mobileGroup===groupId);
+      });
     }
 
-    // Tabs & Render Chính
-    function switchTab(evt, tabId) {
-      playSfx('click');
-      document.querySelectorAll('.tab-page').forEach(el => { el.style.display = 'none'; el.classList.remove('tab-enter'); });
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      const target=document.getElementById(tabId);
-      if(!target) return showSiteToast('Không tìm thấy khu vực này.','error','⚠️');
-      target.style.display = 'block';
-      void target.offsetWidth;
-      target.classList.add('tab-enter');
-      if(evt && evt.currentTarget) evt.currentTarget.classList.add('active');
-      setMobileNavActive(tabId);
-      closeMobileMore();
-      if (window.innerWidth <= 700) window.scrollTo({top:0, behavior:'smooth'});
-
+    function runTabRender(tabId){
       if (tabId === 'tab-enhance') renderEnhanceMatrix();
       if (tabId === 'tab-character') renderRunes();
       if (tabId === 'tab-tasks') { setTaskDeadlineMin(); renderTaskBoard(); renderRoutines(); }
       if (tabId === 'tab-analytics') renderAnalytics();
       if (tabId === 'tab-gacha') renderGacha();
-      if (tabId === 'tab-settings') {
-        populateMapSettingsDropdown();
-        renderPlaylistTable();
-      }
+      if (tabId === 'tab-system-map') { populateMapSettingsDropdown(); }
+      if (tabId === 'tab-system-bgm') { renderPlaylistTable(); }
+    }
+
+    function switchSubTab(groupId, tabId, evt, shouldScroll=true){
+      playSfx('click');
+      const group=document.getElementById(groupId);
+      const target=document.getElementById(tabId);
+      if(!group || !target) return showSiteToast('Không tìm thấy khu vực này.','error','⚠️');
+
+      document.querySelectorAll('.group-page').forEach(el=>el.style.display='none');
+      group.style.display='block';
+      group.querySelectorAll('.group-subpage').forEach(el=>{
+        el.style.display='none';
+        el.classList.remove('tab-enter');
+      });
+      target.style.display='block';
+      void target.offsetWidth;
+      target.classList.add('tab-enter');
+      group.querySelectorAll('.group-sub-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.subtab===tabId));
+      document.querySelectorAll('.desktop-group-nav .tab-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.groupTab===groupId));
+      setMobileNavActive(groupId);
+      runTabRender(tabId);
+      if(shouldScroll && window.innerWidth<=700) window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function switchGroup(groupId, tabId, evt){
+      const group=document.getElementById(groupId);
+      if(!group) return showSiteToast('Không tìm thấy khu vực này.','error','⚠️');
+      const first = group.querySelector('.group-subpage');
+      const targetId = tabId || (first && first.id);
+      switchSubTab(groupId, targetId, evt, true);
+    }
+
+    // Legacy-compatible entry point: internal buttons can still call switchTab(tabId).
+    function switchTab(evt, tabId) {
+      const meta=TAB_GROUP_MAP[tabId];
+      if(!meta) return showSiteToast('Không tìm thấy khu vực này.','error','⚠️');
+      switchSubTab(meta[0], meta[1], evt, true);
     }
 
     function openAvatarModal() {
