@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BetterLevel - RPG Tasking Universe V13</title>
+  <title>BetterLevel - RPG Tasking Universe V24</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
@@ -194,7 +194,7 @@
     }
 
     /* Five parent groups + nested sub-tabs */
-    .group-page { width:100%; min-width:0; }
+    .group-page { width:100%; min-width:0; scroll-margin-top:96px; }
     .group-page[style*="display:none"] { display:none!important; }
     .group-subnav-shell {
       display:flex; align-items:center; gap:8px; min-width:0; max-width:100%;
@@ -370,6 +370,36 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.85); pointer-events: none; transition: 0.2s;
     }
     .has-tooltip:hover .tooltip-content { visibility: visible; opacity: 1; bottom: 112%; }
+
+    /* Equipped gear tooltip: keep the normal UPWARD direction, but lift the
+       active equipment tab above the sticky navigation so the tooltip can
+       visually overlap the menu instead of being covered by it. */
+    .gear-slot.has-tooltip .tooltip-content {
+      top: auto;
+      bottom: 112%;
+      z-index: 50000;
+    }
+    .gear-slot.has-tooltip:hover .tooltip-content {
+      top: auto;
+      bottom: 112%;
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* The tooltip lives inside .tab-page. Elevate only the active character
+       page while a gear tooltip is being hovered; the rest of the UI stays
+       below the sticky navigation. */
+    .tab-character:has(.gear-slot.has-tooltip:hover),
+    #tab-character:has(.gear-slot.has-tooltip:hover) {
+      position: relative;
+      z-index: 600;
+    }
+    #tab-character .card:has(.gear-slot.has-tooltip:hover),
+    #tab-character .gear-grid:has(.gear-slot.has-tooltip:hover) {
+      position: relative;
+      z-index: 601;
+    }
+
     .diff-pos { color: #4ade80; font-weight: bold; }
     .diff-neg { color: #f87171; font-weight: bold; }
     .diff-eq { color: var(--subtext); }
@@ -602,6 +632,15 @@
     }
   
     /* V9 UX Compact + Mobile + In-site Notifications */
+    .enhance-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+    .enhance-title{display:inline-flex;align-items:center;gap:4px;min-width:0;flex:1 1 280px;}
+    .enhance-quartz-counts{display:flex;align-items:center;justify-content:flex-end;gap:6px;flex:0 1 auto;flex-wrap:wrap;min-width:0;}
+    .enhance-quartz-counts .badge{white-space:nowrap;padding:5px 8px;font-size:11px;}
+    .feature-help-title{display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-size:16px;font-weight:800;margin-bottom:12px;}
+    .help-inline{position:relative!important;width:20px!important;height:20px!important;min-width:20px!important;margin-left:3px!important;font-size:11px!important;}
+    .help-resource{width:16px!important;height:16px!important;min-width:16px!important;margin-left:2px!important;font-size:9px!important;border-radius:50%;}
+    .resource-help-badge{gap:4px!important;}
+    .site-dialog-body{max-height:min(68vh,560px);overflow-y:auto;overscroll-behavior:contain;}
     .help-dot{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1px solid rgba(56,189,248,.45);background:rgba(56,189,248,.09);color:#7dd3fc;font-weight:900;font-size:12px;cursor:pointer;margin-left:7px;vertical-align:middle;transition:.2s;position:relative}
     .help-dot:hover{transform:translateY(-1px) scale(1.05);background:rgba(56,189,248,.16);border-color:rgba(56,189,248,.8);box-shadow:0 0 14px rgba(56,189,248,.16)}
     .help-dot::after{content:'Xem giải thích';position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);opacity:0;pointer-events:none;white-space:nowrap;padding:5px 8px;border-radius:8px;background:#0b1120;border:1px solid rgba(56,189,248,.35);color:#dbeafe;font-size:10px;font-weight:600;transition:.16s;z-index:80}
@@ -750,6 +789,14 @@
       .task-summary,.analytics-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.task-summary-card,.analytics-card{padding:8px}.analytics-card .value{font-size:18px}.calendar-cell{min-height:54px;padding:4px}.calendar-count{font-size:13px}.calendar-date{font-size:10px}.month-nav strong{font-size:12px}.month-nav button{padding:6px 8px}
       #tab-tasks .card>div:first-of-type{display:grid!important;grid-template-columns:1fr;gap:7px!important}.deadline-input-wrap{width:100%;min-width:0!important;display:grid!important;grid-template-columns:1fr auto auto auto}.deadline-input-wrap .deadline-helper{grid-column:1/-1}.deadline-input-wrap #taskDeadline{width:100%;min-width:0!important}.deadline-quick{padding:6px 7px!important}
       .gear-grid{grid-template-columns:repeat(3,1fr);gap:6px}.gear-slot{min-height:122px;padding:7px 3px}.gear-img-large{width:54px;height:54px}.slot-level-badge{font-size:9px}.enhance-grid{grid-template-columns:1fr}.rune-slots{grid-template-columns:repeat(2,1fr)}.rune-inventory{grid-template-columns:repeat(2,minmax(0,1fr))}.rune-slot{min-height:84px}.rune-name{font-size:10px}.rune-buff{font-size:9px}
+      .enhance-header{display:grid;grid-template-columns:1fr;gap:7px;align-items:start;}
+      .enhance-title{flex:none;width:100%;font-size:15px;line-height:1.25;}
+      .enhance-quartz-counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;gap:5px;}
+      .enhance-quartz-counts .badge{width:100%;min-width:0;justify-content:center;padding:6px 3px;font-size:9.2px;gap:2px;overflow:hidden;}
+      .enhance-quartz-counts .badge span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+      .enhance-quartz-counts .badge b{flex:0 0 auto;}
+      .feature-help-title{justify-content:flex-start;font-size:14px;margin-bottom:9px;}
+
       .map-viewport{height:auto;min-height:430px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;gap:8px;padding:12px}.boss-figure{order:1;min-height:170px;display:flex;align-items:flex-end;justify-content:center}.boss-img{max-height:170px;max-width:82%}.boss-hud{order:2;max-width:none;padding:10px}
 .battle-history-entry{
   margin:0 0 7px;
@@ -874,6 +921,10 @@
     }
 
     @media(max-width:420px){
+      .enhance-quartz-counts{grid-template-columns:repeat(3,minmax(0,1fr));}
+      .enhance-quartz-counts .badge{font-size:8.6px;padding:5px 2px;}
+      .help-inline{width:19px!important;height:19px!important;min-width:19px!important;font-size:10px!important;}
+      .help-resource{width:15px!important;height:15px!important;min-width:15px!important;font-size:8px!important;}
       .hero-header{grid-template-columns:58px minmax(0,1fr)!important;}
       .avatar-img{width:52px!important;height:52px!important;}
       .compact-resource-bar .badge{font-size:8.7px;}
@@ -1549,7 +1600,7 @@
 
 
 /* ============================================================
-   V18 FINAL FIX — AVATAR MODAL / PROFILE MUSIC / BGM / BG GUARD
+   V24 FINAL FIX — EQUIPMENT TOOLTIP / HELP / EFFECT DEDUP / MOBILE QUARTZ
    ============================================================ */
 
 /* Modal must cover ALL sticky/fixed UI, including the 5-tab header. */
@@ -1709,6 +1760,8 @@
   -webkit-user-select: none !important;
   -webkit-touch-callout: none !important;
   -webkit-user-drag: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
   touch-action: none !important;
   cursor: default !important;
 }
@@ -1719,14 +1772,8 @@
 
 /* Transparent interaction shield sits above the background, below the app. */
 #backgroundTouchShield {
-  position: fixed !important;
-  inset: 0 !important;
-  z-index: 1 !important;
-  background: transparent !important;
-  pointer-events: auto !important;
-  touch-action: pan-y !important;
-  user-select: none !important;
-  -webkit-user-select: none !important;
+  display: none !important;
+  pointer-events: none !important;
 }
 
 .container {
@@ -1968,7 +2015,7 @@
   <div id="siteToastStack" class="site-toast-stack" aria-live="polite"></div>
   <div class="ambient-light-2"></div>
   <div id="bgImageLayer" class="bg-image-layer" aria-hidden="true"></div>
-  <video id="bgVideo" class="video-bg" autoplay muted loop playsinline></video>
+  <video id="bgVideo" class="video-bg" autoplay muted loop playsinline tabindex="-1" draggable="false" aria-hidden="true" disablepictureinpicture disableremoteplayback></video>
   <div class="overlay-dim"></div>
   <div id="backgroundTouchShield" aria-hidden="true"></div>
 
@@ -2012,8 +2059,8 @@
         <!-- Row 2: compact resources -->
         <div class="stat-bar compact-resource-bar" aria-label="Tài nguyên nhanh">
           <div class="badge" style="color:var(--gold);" title="Vàng">🪙 <span id="coinDisplay">0</span> Vàng</div>
-          <div class="badge" style="color:var(--orange);" title="Chuỗi ngày">🔥 <span id="streakDisplay">0</span> ngày</div>
-          <div class="badge" style="color:var(--primary);" title="Khiên">🛡️ Khiên: <span id="shieldDisplay">0</span></div>
+          <div class="badge resource-help-badge" style="color:var(--orange);" title="Chuỗi ngày">🔥 <span id="streakDisplay">0</span> ngày <span class="help-dot help-resource" data-help-key="streak" role="button" tabindex="0" title="Mục 17 · Giải thích Streak" aria-label="Mục 17 · Giải thích Streak">?</span></div>
+          <div class="badge resource-help-badge" style="color:var(--primary);" title="Khiên">🛡️ Khiên: <span id="shieldDisplay">0</span> <span class="help-dot help-resource" data-help-key="shield" role="button" tabindex="0" title="Mục 18 · Giải thích Khiên" aria-label="Mục 18 · Giải thích Khiên">?</span></div>
           <div class="badge" style="color:var(--cyan);" title="Lượt đánh">⚔️ Lượt đánh: <span id="bossTokens">0</span></div>
         </div>
 
@@ -2182,13 +2229,13 @@
 <div id="tab-character" class="tab-page group-subpage">
       <div class="card">
         <h3>
-          <span>9 Ô Trang Bị (Nón, Áo, Quần, Giày, Vũ khí, Hóa trang & 3 Vật phẩm)</span>
+          <span>Trang bị nhân vật</span>
           <small style="font-size:12px; color:var(--subtext); font-weight:normal;">Hover xem so sánh, Nhấn để tháo</small>
         </h3>
          <div class="gear-grid" id="gearSlotsContainer"></div>
 
         <div class="combat-stats-panel">
-          <div class="combat-stats-title">Chỉ Số Chiến Đấu</div>
+          <div class="combat-stats-title" data-help-static="1">Chỉ Số Chiến Đấu <span class="help-dot help-inline" data-help-key="combatStats" role="button" tabindex="0" title="Mục 5 · Giải thích Chỉ Số Chiến Đấu" aria-label="Mục 5 · Giải thích Chỉ Số Chiến Đấu">?</span></div>
           <div class="combat-stats">
             <div class="badge">⚔️ ATK <span id="statATK">20</span></div>
             <div class="badge">🛡️ DEF <span id="statDEF">10</span></div>
@@ -2200,7 +2247,7 @@
           <button type="button" class="effect-summary-card" onclick="toggleEffectDetails(event)" aria-expanded="false" id="effectSummaryButton">
             <span class="effect-summary-left">
               <span class="effect-summary-icon">✨</span>
-              <span>Hiệu Ứng</span>
+              <span>Hiệu Ứng <span class="help-dot help-inline" data-help-key="effects" role="button" tabindex="0" title="Mục 6 · Giải thích Hiệu Ứng" aria-label="Mục 6 · Giải thích Hiệu Ứng">?</span></span>
               <span id="effectSummaryText" class="effect-summary-muted" aria-hidden="true">Hiệu ứng</span>
             </span>
             <span id="effectSummaryArrow" class="effect-summary-arrow">›</span>
@@ -2208,14 +2255,13 @@
 
           <div id="effectDetails" class="effect-details" hidden>
             <div id="effectDetailsList" class="effect-details-list"></div>
-            <div id="activeBuffsBar" class="character-buffs"></div>
           </div>
         </div>
 
         <div class="rune-panel">
           <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;">
             <div>
-              <div style="font-size:15px;font-weight:800;color:#fff;">ᚱ Cổ Ngữ Thần Thoại</div>
+              <div style="font-size:15px;font-weight:800;color:#fff;" data-help-static="1">ᚱ Cổ Ngữ Thần Thoại <span class="help-dot help-inline" data-help-key="runes" role="button" tabindex="0" title="Mục 9 · Giải thích Rune / Cổ Ngữ" aria-label="Mục 9 · Giải thích Rune / Cổ Ngữ">?</span></div>
               <div style="font-size:10.5px;color:var(--subtext);margin-top:2px;">Gắn tối đa 4 Cổ Ngữ • Không được trùng cùng một loại • Không cần ảnh, chỉ hiển thị Ký tự / Tên / Buff.</div>
             </div>
             <span class="badge" style="color:var(--gold);">🎟️ Gacha: <span id="runePullPityDisplay">0</span>/100</span>
@@ -2230,7 +2276,7 @@
      </div>
 <div id="tab-inventory" class="tab-page group-subpage" style="display:none;">
       <div class="card">
-        <h3>🎒 Túi Đồ Nhân Vật</h3>
+        <h3 data-help-static="1">🎒 Túi Đồ Nhân Vật <span class="help-dot help-inline" data-help-key="inventory" role="button" tabindex="0" title="Mục 14 · Giải thích Túi Đồ" aria-label="Mục 14 · Giải thích Túi Đồ">?</span></h3>
         <p style="font-size:12.5px; color:var(--gold); margin-bottom:8px;">* Bán trang bị nhận lại EXP = 50% giá Vàng của trang bị.</p>
         <h4 style="margin: 10px 0 6px; color:var(--gold); font-size:14px;">📦 Rương Báu, Dược Phẩm & Thạch Anh</h4>
         <div class="item-grid" id="invConsumables"></div>
@@ -2241,13 +2287,13 @@
     </div>
 <div id="tab-enhance" class="tab-page group-subpage" style="display:none;">
       <div class="card">
-        <h3>
-          <span>💎 Cường Hóa Ô Trang Bị (0 → +10)</span>
-          <div style="display:flex; gap:8px; font-size:12px;">
-            <span class="badge">🔹 Sơ cấp: <b id="cntQuartzBasic">0</b></span>
-            <span class="badge">🔷 Tinh khiết: <b id="cntQuartzPure">0</b></span>
-            <span class="badge">🔮 Hỗn độn: <b id="cntQuartzChaos">0</b></span>
-          </div>
+        <h3 class="enhance-header" data-help-static="1">
+          <span class="enhance-title">💎 Cường Hóa Ô Trang Bị <span class="help-dot help-inline" data-help-key="enhancement" role="button" tabindex="0" title="Mục 7 · Giải thích Cường Hóa Ô Trang Bị" aria-label="Mục 7 · Giải thích Cường Hóa Ô Trang Bị">?</span></span>
+          <span class="enhance-quartz-counts" aria-label="Số lượng Thạch Anh">
+            <span class="badge">🔹 <span>Sơ cấp</span>: <b id="cntQuartzBasic">0</b></span>
+            <span class="badge">🔷 <span>Tinh khiết</span>: <b id="cntQuartzPure">0</b></span>
+            <span class="badge">🔮 <span>Hỗn độn</span>: <b id="cntQuartzChaos">0</b></span>
+          </span>
         </h3>
         <p style="font-size:12px; color:var(--subtext); margin-bottom:12px;">
           * Cường hóa trực tiếp 9 ô trang bị nhân vật. Khi thay đồ, cấp ô vẫn giữ nguyên vĩnh viễn. Thất bại không bị tụt cấp.
@@ -2255,7 +2301,7 @@
 
         <!-- Lò Luyện & Ghép Thạch Anh -->
         <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px; margin-bottom:14px;">
-          <h4 style="font-size:13px; color:var(--cyan); margin-bottom:6px;">⚗️ Xưởng Luyện Thạch Anh (Ghép Đá Cấp Cao)</h4>
+          <h4 style="font-size:13px; color:var(--cyan); margin-bottom:6px;" data-help-static="1">⚗️ Xưởng Luyện Thạch Anh (Ghép Đá Cấp Cao) <span class="help-dot help-inline" data-help-key="quartz" role="button" tabindex="0" title="Mục 8 · Giải thích Thạch Anh" aria-label="Mục 8 · Giải thích Thạch Anh">?</span></h4>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <button class="secondary" onclick="craftQuartz('pure')">Ghép 5 Sơ Cấp + 50 Gold ➔ 1 Tinh Khiết</button>
             <button class="secondary" onclick="craftQuartz('chaos')">Ghép 4 Tinh Khiết + 200 Gold ➔ 1 Hỗn Độn</button>
@@ -2315,6 +2361,7 @@
     </div>
 <div id="tab-pomodoro" class="tab-page group-subpage" style="display:none;">
       <div class="card" style="text-align:center; padding:30px 20px;">
+        <div class="feature-help-title"><span>🍅 Pomodoro</span><span class="help-dot help-inline" data-help-key="pomodoro" role="button" tabindex="0" title="Mục 15 · Giải thích Pomodoro" aria-label="Mục 15 · Giải thích Pomodoro">?</span></div>
         <div style="font-size:13px; font-weight:700; color:var(--primary); margin-bottom:10px;" id="pomoPhase">
           🔥 HIỆP TẬP TRUNG (NHẬN EXP & VÀNG & 🍅)
         </div>
@@ -2629,7 +2676,7 @@
 </div>
 <div id="tab-system-bgm" class="tab-page group-subpage" style="display:none;">
   <div class="system-substack">
-    <div class="system-subtitle"><span>🎵 Nhạc BGM & Presets</span><small>Quản lý danh sách nhạc YouTube và điều khiển BGM.</small></div>
+    <div class="system-subtitle" data-help-static="1"><span>🎵 Nhạc BGM & Presets <span class="help-dot help-inline" data-help-key="bgm" role="button" tabindex="0" title="Mục 19 · Giải thích BGM" aria-label="Mục 19 · Giải thích BGM">?</span></span><small>Quản lý danh sách nhạc YouTube và điều khiển BGM.</small></div>
 
 <div class="card">
           <div class="system-audio-control">
@@ -2693,7 +2740,7 @@
 </div>
 <div id="tab-system-backup" class="tab-page group-subpage" style="display:none;">
   <div class="system-substack">
-    <div class="system-subtitle"><span>💾 Sao Lưu Dữ Liệu</span><small>Ghi chú chiến lược, xuất dữ liệu và khôi phục bản sao lưu.</small></div>
+    <div class="system-subtitle" data-help-static="1"><span>💾 Sao Lưu Dữ Liệu <span class="help-dot help-inline" data-help-key="backup" role="button" tabindex="0" title="Mục 20 · Giải thích Sao Lưu Dữ Liệu" aria-label="Mục 20 · Giải thích Sao Lưu Dữ Liệu">?</span></span><small>Ghi chú chiến lược, xuất dữ liệu và khôi phục bản sao lưu.</small></div>
 
 <div class="card">
           <h3>💾 Quản Lý Sao Lưu Dữ Liệu</h3>
@@ -4398,9 +4445,43 @@
       }
     }
 
+    function normalizeEffectText(value) {
+      return String(value == null ? '' : value)
+        .replace(/\s+/g, ' ')
+        .replace(/[–—]/g, '-')
+        .trim()
+        .toLowerCase();
+    }
+
+    function getUniqueItemDescription(item) {
+      const itemDescription = String(item?.desc || '').trim();
+      if (!itemDescription) return '';
+      const effectKey = item?.special || 'none';
+      const effect = getEffectParts(effectKey);
+      const candidates = [
+        EFFECT_NAMES[effectKey],
+        effect.title,
+        effect.desc
+      ].map(normalizeEffectText).filter(Boolean);
+      return candidates.includes(normalizeEffectText(itemDescription)) ? '' : itemDescription;
+    }
+
+    function getEffectParts(effectKey) {
+      const raw = String(EFFECT_NAMES[effectKey || 'none'] || effectKey || 'none').trim();
+      const m = raw.match(/^(.+?)\s*\((.*)\)$/);
+      return {
+        title: m ? m[1].trim() : raw,
+        desc: m ? m[2].trim() : ''
+      };
+    }
+
     function generateCompareTooltipHtml(item) {
       const equippedItem = state.equipped[item.slot];
       const rarity = RARITY_INFO[item.rarity || 'common'];
+      const effectKey = item.special || 'none';
+      const effect = getEffectParts(effectKey);
+      const itemDescription = getUniqueItemDescription(item);
+      const hasSpecialEffect = effectKey !== 'none' && !!effect.title;
 
       let compareHtml = `
         <b style="color:${rarity.color}; font-size:13px;">${item.name}</b>
@@ -4427,8 +4508,9 @@
 
       compareHtml += `
         <div style="margin-top:6px; font-size:11px; color:var(--cyan);">Loại ST: ${item.dmgType || 'physical'}</div>
-        <div style="font-size:11px; color:var(--gold);">Hiệu ứng: ${EFFECT_NAMES[item.special || 'none']}</div>
-        <div style="font-size:10px; color:var(--subtext); margin-top:4px;">${item.desc || ''}</div>
+        ${hasSpecialEffect ? `<div style="font-size:11px; color:var(--gold);">Hiệu ứng: ${effect.title}</div>` : ''}
+        ${hasSpecialEffect && effect.desc ? `<div style="font-size:10px; color:var(--subtext); margin-top:2px;">${effect.desc}</div>` : ''}
+        ${itemDescription ? `<div style="font-size:10px; color:var(--subtext); margin-top:4px;">${itemDescription}</div>` : ''}
       `;
 
       if (equippedItem) {
@@ -4977,6 +5059,21 @@
       if (tabId === 'tab-system-bgm') { renderPlaylistTable(); }
     }
 
+    function getTopNavigationOffset(){
+      let offset=10;
+      const desktopNav=document.querySelector('.desktop-group-nav');
+      if(desktopNav && window.getComputedStyle(desktopNav).display!=='none'){
+        offset += desktopNav.getBoundingClientRect().height + 8;
+      }
+      return offset;
+    }
+
+    function scrollGroupToSafePosition(group){
+      if(!group || !window.scrollTo) return;
+      const top = Math.max(0, group.getBoundingClientRect().top + window.scrollY - getTopNavigationOffset());
+      window.scrollTo({top, behavior:'smooth'});
+    }
+
     function switchSubTab(groupId, tabId, evt, shouldScroll=true){
       playSfx('click');
       const group=document.getElementById(groupId);
@@ -4997,7 +5094,9 @@
       document.querySelectorAll('.desktop-group-nav .tab-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.groupTab===groupId));
       setMobileNavActive(groupId);
       runTabRender(tabId);
-      if(shouldScroll && window.innerWidth<=700) window.scrollTo({top:0,behavior:'smooth'});
+      if(shouldScroll){
+        requestAnimationFrame(()=>scrollGroupToSafePosition(group));
+      }
     }
 
     function switchGroup(groupId, tabId, evt){
@@ -5125,12 +5224,16 @@
         const item = state.equipped[slotKey];
         if (!item || !item.special || item.special === 'none') continue;
         const slotName = SLOT_NAMES[slotKey]?.title || slotKey;
+        const effectText = String(EFFECT_NAMES[item.special] || item.special).trim();
+        const m = effectText.match(/^(.+?)\s*\((.*)\)$/);
+        const effectTitle = m ? m[1].trim() : effectText;
+        const effectDesc = m ? m[2].trim() : effectText;
         push('gear-' + slotKey + '-' + item.special, {
           type: 'gear',
           icon: '⚔️',
-          title: EFFECT_NAMES[item.special] || item.special,
+          title: effectTitle,
           source: 'Trang bị: ' + slotName,
-          desc: EFFECT_NAMES[item.special] || item.special
+          desc: effectDesc
         });
       }
 
@@ -5298,7 +5401,6 @@
           buffHtml += `<span class="badge" style="color:var(--primary);">💎 Khai Minh (x2 EXP: ${state.activeBuffs.gemEnlightenmentTasks} task)</span>`;
         }
       }
-      document.getElementById('activeBuffsBar').innerHTML = buffHtml;
       updateEffectSummary(stats);
 
       // 9 Ô Trang Bị Kèm Cấp Cường Hóa Ô
@@ -5322,8 +5424,8 @@
                 <span>❤️ Máu: +${item.bonusHp || 0} HP (+${item.bonusHpPercent || 0}%)</span><br>
                 <span>💥 CRIT: +${item.crit || 0}%</span><br>
                 <span style="color:var(--cyan);">Loại ST: ${item.dmgType || 'physical'}</span><br>
-                <span style="color:var(--gold);">Hiệu ứng: ${EFFECT_NAMES[item.special || 'none']}</span><br>
-                <small style="color:var(--subtext);">${item.desc || ''}</small><br>
+                ${item.special && item.special !== 'none' ? `<span style="color:var(--gold);">Hiệu ứng: ${getEffectParts(item.special).title}</span><br>${getEffectParts(item.special).desc ? `<small style="color:var(--subtext);">${getEffectParts(item.special).desc}</small><br>` : ''}` : ''}
+                ${getUniqueItemDescription(item) ? `<small style="color:var(--subtext);">${getUniqueItemDescription(item)}</small><br>` : ''}
                 <span style="color:var(--red); font-size:10px;">(Nhấn vào ô để tháo trang bị)</span>
               </div>
             </div>
@@ -5479,7 +5581,12 @@
       const bgImageLayer = document.getElementById('bgImageLayer');
       const bgUrl = String(state.bgUrl || '').trim();
       const isVideoBg = /\.(mp4|webm)(?:[?#]|$)/i.test(bgUrl);
-      if (isVideoBg) {
+      const isTouchMobile = window.matchMedia
+        ? window.matchMedia('(max-width: 768px) and (pointer: coarse)').matches
+        : window.innerWidth <= 768;
+      const allowBackgroundVideo = isVideoBg && !isTouchMobile;
+
+      if (allowBackgroundVideo) {
         if (bgImageLayer) bgImageLayer.style.backgroundImage = 'none';
         if (bgVideo) {
           const current = bgVideo.getAttribute('src') || '';
@@ -5487,6 +5594,14 @@
             bgVideo.src = bgUrl;
             bgVideo.load();
           }
+          bgVideo.controls = false;
+          bgVideo.muted = true;
+          bgVideo.playsInline = true;
+          bgVideo.setAttribute('playsinline','');
+          bgVideo.setAttribute('webkit-playsinline','');
+          bgVideo.setAttribute('disablepictureinpicture','');
+          bgVideo.setAttribute('disableremoteplayback','');
+          bgVideo.setAttribute('controlslist','nodownload nofullscreen noremoteplayback');
           bgVideo.style.display = 'block';
           bgVideo.play().catch(()=>{});
         }
@@ -5495,10 +5610,14 @@
           bgVideo.pause();
           bgVideo.removeAttribute('src');
           bgVideo.load();
+          bgVideo.controls = false;
           bgVideo.style.display = 'none';
         }
         if (bgImageLayer) {
-          bgImageLayer.style.backgroundImage = bgUrl ? `url("${bgUrl.replace(/"/g,'\\"')}")` : 'none';
+          // Normal image backgrounds remain available on mobile; video backgrounds are
+          // intentionally disabled there so no native video viewer can ever be invoked.
+          const safeImageUrl = isVideoBg ? '' : bgUrl;
+          bgImageLayer.style.backgroundImage = safeImageUrl ? `url("${safeImageUrl.replace(/"/g,'\\"')}")` : 'none';
         }
       }
     }
@@ -5592,13 +5711,85 @@
       if(/thành công|đã lưu|đã mua|đã tạo|khôi phục/i.test(msg)){icon='✅';kicker='SYSTEM UPDATE';title='Thao Tác Thành Công';}
       openSiteDialog(title,msg,icon,kicker);
     };
+    const HELP_CONTENT = {
+      combatStats: {
+        title: 'Chỉ Số Chiến Đấu', icon: '⚔️',
+        message: `ATK: Sát thương cơ bản khi tấn công Boss.\n\nDEF: Giảm sát thương nhận từ Boss.\n\nCRIT: Tỷ lệ gây đòn chí mạng.\n\nEVA: Tỷ lệ né đòn.\n\nCRIT DMG: Sát thương khi kích hoạt chí mạng.\n\nCác chỉ số được tính từ Level + Trang bị + Cấp ô + Rune + hiệu ứng đang hoạt động.`
+      },
+      effects: {
+        title: 'Hiệu Ứng', icon: '✨',
+        message: `Hiệu ứng là những khả năng đặc biệt đang tác động lên nhân vật.\n\nNguồn có thể gồm:\n- Trang bị đang mặc.\n- Rune.\n- Combo Rune.\n- Buff tạm thời.\n- Cấp cường hóa ô trang bị.\n\nBấm vào Hiệu Ứng để xem chi tiết từng hiệu ứng, tác dụng và nguồn gốc.`
+      },
+      enhancement: {
+        title: 'Cường Hóa Ô Trang Bị', icon: '💎',
+        message: `Cường hóa ô làm tăng sức mạnh cố định của từng vị trí trang bị.\n\n- Có 9 ô.\n- Mỗi ô nâng từ +0 → +10.\n- Đổi trang bị không làm mất cấp ô.\n- Thất bại không làm tụt cấp.\n- Vẫn tiêu hao Vàng và Thạch Anh khi cường hóa.\n\nTỷ lệ thành công giảm khi cấp ô tăng cao.`
+      },
+      quartz: {
+        title: 'Thạch Anh', icon: '💎',
+        message: `Thạch Anh dùng để cường hóa ô trang bị.\n\nCó 3 cấp:\n- Sơ Cấp\n- Tinh Khiết\n- Hỗn Độn\n\nCó thể sử dụng Xưởng Luyện để ghép Thạch Anh cấp thấp thành cấp cao hơn.`
+      },
+      runes: {
+        title: 'Rune / Cổ Ngữ', icon: 'ᚱ',
+        message: `Rune tạo thêm hiệu ứng đặc biệt cho nhân vật.\n\n- Có thể gắn tối đa 4 Rune.\n- Không thể gắn trùng cùng một loại.\n- Một số Rune có thể kết hợp để kích hoạt Combo.\n- Hiệu ứng Rune được tổng hợp trong mục Hiệu Ứng.`
+      },
+      inventory: {
+        title: 'Túi Đồ', icon: '🎒',
+        message: `Túi Đồ lưu các vật phẩm và trang bị bạn đã nhận.\n\nTùy loại vật phẩm, bạn có thể:\n- Sử dụng.\n- Trang bị.\n- Bán.\n- Xóa.\n\nCà Chua Pomodoro:\nDùng: hồi 10% Max HP.\nBán: 5 Vàng/quả.`
+      },
+      pomodoro: {
+        title: 'Pomodoro', icon: '🍅',
+        message: `Pomodoro giúp biến thời gian tập trung thành tài nguyên trong game.\n\nHoàn thành:\n25 phút tập trung → +50 EXP +30 Vàng +1 Cà Chua\n\n5 phút nghỉ không nhận thưởng.\n\nCà Chua: hồi 10% Max HP hoặc bán lấy 5 Vàng.`
+      },
+      streak: {
+        title: 'Streak', icon: '🔥',
+        message: `Streak là chuỗi ngày hoạt động liên tiếp.\n\nCác mốc phần thưởng:\n- 3 ngày → Rương Gỗ.\n- 7 ngày → Rương Bạc.\n- 14 ngày → Rương Vàng.\n- 30 ngày → Rương Kim Cương.\n\nKhi bỏ lỡ một ngày, Khiên có thể bảo vệ Streak tùy cơ chế hiện tại.`
+      },
+      shield: {
+        title: 'Khiên', icon: '🛡️',
+        message: `Khiên giúp bảo vệ Streak khi bỏ lỡ một ngày.\n\nKhi bị mất chuỗi:\n- Có Khiên → tiêu hao 1 Khiên và bảo vệ Streak.\n- Không có Khiên → Streak được đặt lại theo luật hệ thống.`
+      },
+      bgm: {
+        title: 'BGM', icon: '🎵',
+        message: `BGM là nhạc nền của BetterLevel.\n\nTrong Hệ Thống → BGM & Presets, bạn có thể:\n- Bật/tắt nhạc.\n- Đổi bài.\n- Thêm playlist.\n- Chỉnh âm lượng.\n\nProfile chỉ giữ lại một nút nhỏ để bật/tắt nhanh.`
+      },
+      backup: {
+        title: 'Sao Lưu Dữ Liệu', icon: '💾',
+        message: `Nên sao lưu định kỳ để bảo vệ tiến trình.\n\nJSON: sao lưu và khôi phục toàn bộ dữ liệu.\n\nCSV: xuất dữ liệu nhiệm vụ để xem dưới dạng bảng.\n\nNên tạo một bản JSON trước khi đổi thiết bị hoặc xóa dữ liệu trình duyệt.`
+      }
+    };
+
+    function showHelpDialog(key){
+      const item = HELP_CONTENT[key];
+      if (!item) return;
+      openSiteDialog(item.title, item.message, item.icon, 'BETTERLEVEL GUIDE');
+    }
+
+    function bindHelpDots(root=document){
+      root.querySelectorAll('.help-dot[data-help-key]').forEach(el=>{
+        if (el.dataset.helpBound === '1') return;
+        const key = el.dataset.helpKey;
+        const activate = (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          showHelpDialog(key);
+        };
+        el.addEventListener('click', activate);
+        el.addEventListener('keydown', (event)=>{
+          if (event.key === 'Enter' || event.key === ' ') activate(event);
+        });
+        el.dataset.helpBound = '1';
+      });
+    }
+
     function installCompactHelp(){
+      bindHelpDots(document);
       const targets=[...document.querySelectorAll('.card > p, .gacha-card > p, .routine-panel > div:nth-child(1) > div:nth-child(2)')];
       targets.forEach(el=>{
         if(el.dataset.helpReady==='1')return;
+        const heading=el.parentElement?.querySelector('h3,h4');
+        if(heading?.dataset.helpStatic === '1' || el.parentElement?.dataset.helpStatic === '1') return;
         const text=(el.innerText||'').trim();
         if(text.length<70)return;
-        const heading=el.parentElement?.querySelector('h3,h4');
         if(!heading)return;
         el.dataset.helpReady='1';
         el.classList.add('compact-hidden');
@@ -5649,33 +5840,54 @@
   </script>
 
 <script>
-/* V18 mobile background interaction guard: prevent video/image background from ever opening native viewers. */
+/* V21 FINAL — background media is visual-only and can never become a native viewer target. */
 (function(){
+  const BG_SELECTORS = '#bgVideo, #bgImageLayer, .video-bg, .bg-image-layer';
+
+  function hardenBackgroundMedia(){
+    const video=document.getElementById('bgVideo');
+    const image=document.getElementById('bgImageLayer');
+    [video,image].forEach(el=>{
+      if(!el) return;
+      el.setAttribute('aria-hidden','true');
+      el.setAttribute('tabindex','-1');
+      el.setAttribute('draggable','false');
+      el.style.pointerEvents='none';
+      el.style.userSelect='none';
+      el.style.webkitUserSelect='none';
+      el.style.webkitTouchCallout='none';
+      if(video===el){
+        el.controls=false;
+        el.muted=true;
+        el.playsInline=true;
+        el.setAttribute('playsinline','');
+        el.setAttribute('webkit-playsinline','');
+        el.setAttribute('disablepictureinpicture','');
+        el.setAttribute('disableremoteplayback','');
+        el.setAttribute('controlslist','nodownload nofullscreen noremoteplayback');
+      }
+    });
+  }
+
   function stopBackgroundActivation(e){
     const t=e && e.target;
     if(!t) return;
-    if(t.id==='bgVideo' || t.id==='bgImageLayer' || (t.closest && t.closest('#bgVideo, #bgImageLayer'))){
+    if(t.matches && t.matches(BG_SELECTORS) || (t.closest && t.closest(BG_SELECTORS))){
       e.preventDefault();
       e.stopPropagation();
-      if(typeof e.stopImmediatePropagation==='function') e.stopImmediatePropagation();
+      if(e.stopImmediatePropagation) e.stopImmediatePropagation();
       return false;
     }
   }
-  ['pointerdown','pointerup','mousedown','mouseup','click','dblclick','contextmenu','touchstart','touchend'].forEach(type=>{
+
+  ['pointerdown','pointerup','mousedown','mouseup','click','dblclick','contextmenu','touchstart','touchend','dragstart'].forEach(type=>{
     document.addEventListener(type, stopBackgroundActivation, true);
   });
 
-  const video=document.getElementById('bgVideo');
-  if(video){
-    video.controls=false;
-    video.setAttribute('controlslist','nodownload nofullscreen noremoteplayback');
-    video.setAttribute('disablepictureinpicture','');
-    video.setAttribute('playsinline','');
-    video.setAttribute('webkit-playsinline','');
-    video.setAttribute('aria-hidden','true');
-  }
+  hardenBackgroundMedia();
+  document.addEventListener('DOMContentLoaded', hardenBackgroundMedia);
+  window.addEventListener('resize', hardenBackgroundMedia, {passive:true});
 })();
 </script>
-
 </body>
 </html>
