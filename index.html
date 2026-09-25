@@ -1807,7 +1807,6 @@
     <div class="card hero-header" id="heroProfileHeader">
       <div class="avatar-wrapper" onclick="openAvatarModal()" title="Nhấn để đổi ảnh đại diện">
         <img id="avatarDisplay" class="avatar-img" src="https://api.dicebear.com/7.x/bottts/svg?seed=hero" alt="Avatar">
-        <div class="avatar-badge">Đổi Ảnh</div>
       </div>
 
       <div class="hero-info">
@@ -2013,7 +2012,20 @@
             <div class="badge" style="color:var(--cyan);">💨 EVA <span id="statEVA">0</span>%</div>
             <div class="badge">⚡ CRIT DMG <span id="statCRITDMG">150</span>%</div>
           </div>
-          <div id="activeBuffsBar" class="character-buffs"></div>
+
+          <button type="button" class="effect-summary-card" onclick="toggleEffectDetails(event)" aria-expanded="false" id="effectSummaryButton">
+            <span class="effect-summary-left">
+              <span class="effect-summary-icon">✨</span>
+              <span>Hiệu Ứng</span>
+              <span id="effectSummaryText" class="effect-summary-muted">Đang tải...</span>
+            </span>
+            <span id="effectSummaryArrow" class="effect-summary-arrow">›</span>
+          </button>
+
+          <div id="effectDetails" class="effect-details" hidden>
+            <div id="effectDetailsList" class="effect-details-list"></div>
+            <div id="activeBuffsBar" class="character-buffs"></div>
+          </div>
         </div>
 
         <div class="rune-panel">
@@ -4884,6 +4896,143 @@
         }).join('');
     }
 
+    function getEffectEntries(stats) {
+      const entries = [];
+      const seen = new Set();
+      const push = (key, entry) => {
+        const id = key + '|' + (entry.title || '') + '|' + (entry.source || '');
+        if (seen.has(id)) return;
+        seen.add(id);
+        entries.push(entry);
+      };
+
+      // Hiệu ứng đặc biệt từ trang bị đang mặc
+      for (const slotKey in state.equipped) {
+        const item = state.equipped[slotKey];
+        if (!item || !item.special || item.special === 'none') continue;
+        const slotName = SLOT_NAMES[slotKey]?.title || slotKey;
+        push('gear-' + slotKey + '-' + item.special, {
+          type: 'gear',
+          icon: '⚔️',
+          title: EFFECT_NAMES[item.special] || item.special,
+          source: 'Trang bị: ' + slotName,
+          desc: EFFECT_NAMES[item.special] || item.special
+        });
+      }
+
+      // Cổ Ngữ đang gắn
+      if (Array.isArray(state.equippedRunes)) {
+        state.equippedRunes.forEach(key => {
+          const r = RUNE_DATA[key];
+          if (!r) return;
+          push('rune-' + key, {
+            type: 'rune',
+            icon: r.glyph || 'ᚱ',
+            title: r.name,
+            source: 'Cổ Ngữ • ' + r.essence,
+            desc: r.buff
+          });
+        });
+
+        RUNE_COMBOS.forEach(combo => {
+          if (combo.keys.every(hasRune)) {
+            push('combo-' + combo.name, {
+              type: 'combo',
+              icon: '✨',
+              title: combo.name,
+              source: 'Kết Hợp Cổ Ngữ',
+              desc: combo.desc
+            });
+          }
+        });
+      }
+
+      // Buff tạm thời / hiệu ứng đang đếm lượt
+      const now = Date.now();
+      const b = state.activeBuffs || {};
+      if (b.icedCoffeeExpires > now) {
+        const m = Math.ceil((b.icedCoffeeExpires - now) / 60000);
+        push('buff-coffee', {type:'buff', icon:'☕', title:'Cà Phê', source:'Buff tạm thời', desc:`+20% ATK • còn ${m} phút`});
+      }
+      if (b.holyAegisHits > 0) push('buff-holy', {type:'buff', icon:'🛡️', title:'Khiên Thánh', source:'Buff tạm thời', desc:`Miễn phản đòn • ${b.holyAegisHits} lượt`});
+      if (b.voidDewExpires > now) {
+        const m = Math.ceil((b.voidDewExpires - now) / 60000);
+        push('buff-void', {type:'buff', icon:'💧', title:'Vô Thể', source:'Buff tạm thời', desc:`Không kích hoạt phản đòn • còn ${m} phút`});
+      }
+      if (b.elixirOverdriveExpires > now) push('buff-overdrive', {type:'buff', icon:'⚡', title:'Thức Thần', source:'Buff tạm thời', desc:'+1 Lượt Đánh / Task'});
+      if (b.eyeDiscernmentHits > 0) push('buff-eye', {type:'buff', icon:'👁️', title:'Mắt Thần', source:'Buff tạm thời', desc:`+30% CRIT • ${b.eyeDiscernmentHits} lượt`});
+      if (b.runeMidasTasks > 0) push('buff-midas', {type:'buff', icon:'👑', title:'Hoàng Kim Phù Điêu', source:'Buff tạm thời', desc:`x2 Vàng • ${b.runeMidasTasks} task`});
+      if (b.gemEnlightenmentTasks > 0) push('buff-gem', {type:'buff', icon:'💎', title:'Bảo Thạch Khai Minh', source:'Buff tạm thời', desc:`x2 EXP • ${b.gemEnlightenmentTasks} task`});
+
+      // Nội tại từ cường hóa các ô
+      const sl = state.slotLevels || {};
+      if ((sl.weapon||0) > 0) push('slot-weapon', {type:'slot', icon:'⚔️', title:'Cường Hóa Vũ Khí', source:`Ô Vũ khí +${sl.weapon}`, desc:`+${Math.round((sl.weapon||0)*2)}% ATK cơ bản của vũ khí`});
+      if ((sl.armor||0) > 0) push('slot-armor', {type:'slot', icon:'🛡️', title:'Cường Hóa Áo', source:`Ô Áo +${sl.armor}`, desc:`+${(sl.armor*1.5).toFixed(1).replace('.0','')} DEF`});
+      if ((sl.pants||0) > 0) push('slot-pants', {type:'slot', icon:'🛡️', title:'Cường Hóa Quần', source:`Ô Quần +${sl.pants}`, desc:`+${(sl.pants*1.5).toFixed(1).replace('.0','')} DEF`});
+      if ((sl.hat||0) > 0) push('slot-hat', {type:'slot', icon:'👑', title:'Cường Hóa Nón', source:`Ô Nón +${sl.hat}`, desc:`+${(sl.hat*0.5).toFixed(1).replace('.0','')}% CRIT • +${(sl.hat*0.8).toFixed(1).replace('.0','')}% EVA`});
+      if ((sl.shoes||0) > 0) push('slot-shoes', {type:'slot', icon:'👢', title:'Cường Hóa Giày', source:`Ô Giày +${sl.shoes}`, desc:`+${(sl.shoes*0.5).toFixed(1).replace('.0','')}% CRIT • +${(sl.shoes*0.8).toFixed(1).replace('.0','')}% EVA`});
+      const relicLv=(sl.item1||0)+(sl.item2||0)+(sl.item3||0);
+      if (relicLv > 0) push('slot-relic', {type:'slot', icon:'🔮', title:'Cường Hóa 3 Relic', source:`Tổng +${relicLv}`, desc:`+${(relicLv*1.5).toFixed(1).replace('.0','')}% EXP/Vàng`});
+
+      // Cảnh báo rõ ràng khi chưa có hiệu ứng
+      if (!entries.length) {
+        entries.push({type:'empty', icon:'◇', title:'Chưa có hiệu ứng đặc biệt', source:'Hệ thống', desc:'Hiện chỉ có chỉ số cơ bản và chưa có Rune, trang bị đặc biệt hoặc buff tạm thời.'});
+      }
+      return entries;
+    }
+
+    function toggleEffectDetails(event) {
+      if (event) event.stopPropagation();
+      const panel = document.getElementById('effectDetails');
+      const btn = document.getElementById('effectSummaryButton');
+      const arrow = document.getElementById('effectSummaryArrow');
+      if (!panel) return;
+      const willOpen = panel.hidden;
+      panel.hidden = !willOpen;
+      btn?.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      if (arrow) arrow.textContent = willOpen ? '⌄' : '›';
+      if (willOpen) renderEffectDetails();
+    }
+
+    function renderEffectDetails() {
+      const stats = getHeroStats();
+      const entries = getEffectEntries(stats);
+      const box = document.getElementById('effectDetailsList');
+      if (!box) return;
+      box.innerHTML = entries.map(e => `
+        <div class="effect-detail-item ${e.type === 'empty' ? 'empty' : ''}">
+          <div class="effect-detail-head">
+            <span class="effect-detail-icon">${e.icon}</span>
+            <div class="effect-detail-title-wrap">
+              <b>${escapeHtml(e.title)}</b>
+              <small>${escapeHtml(e.source)}</small>
+            </div>
+          </div>
+          <div class="effect-detail-desc">${escapeHtml(e.desc)}</div>
+        </div>
+      `).join('');
+    }
+
+    function updateEffectSummary(stats) {
+      const entries = getEffectEntries(stats);
+      const realEntries = entries.filter(e => e.type !== 'empty');
+      const summary = document.getElementById('effectSummaryText');
+      if (summary) {
+        const types = [];
+        const runeCount = realEntries.filter(e => e.type === 'rune' || e.type === 'combo').length;
+        const gearCount = realEntries.filter(e => e.type === 'gear').length;
+        const buffCount = realEntries.filter(e => e.type === 'buff').length;
+        const slotCount = realEntries.filter(e => e.type === 'slot').length;
+        if (runeCount) types.push(`Rune ${runeCount}`);
+        if (gearCount) types.push(`Đồ ${gearCount}`);
+        if (buffCount) types.push(`Buff ${buffCount}`);
+        if (slotCount) types.push(`Ô ${slotCount}`);
+        summary.textContent = realEntries.length ? `${realEntries.length} hiệu ứng${types.length ? ' • ' + types.join(' • ') : ''}` : 'Chưa có hiệu ứng đặc biệt';
+      }
+      const panel = document.getElementById('effectDetails');
+      if (panel && !panel.hidden) renderEffectDetails();
+    }
+
     function render() {
       resetDailyCycles();
       // Profile
@@ -4945,6 +5094,7 @@
         }
       }
       document.getElementById('activeBuffsBar').innerHTML = buffHtml;
+      updateEffectSummary(stats);
 
       // 9 Ô Trang Bị Kèm Cấp Cường Hóa Ô
       let slotsHtml = "";
@@ -5324,3 +5474,99 @@
 
 </body>
 </html>
+
+
+/* =========================================================
+   V19 — CHARACTER EFFECTS + AVATAR CLEANUP
+   ========================================================= */
+.avatar-badge{display:none!important;}
+
+.effect-summary-card{
+  width:100%;
+  margin-top:9px;
+  padding:8px 10px!important;
+  min-height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  border:1px solid rgba(99,102,241,.18);
+  border-radius:11px;
+  background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(255,255,255,.025));
+  color:#fff;
+  cursor:pointer;
+  text-align:left;
+  transition:.2s ease;
+}
+.effect-summary-card:hover{
+  border-color:rgba(99,102,241,.38);
+  background:linear-gradient(135deg,rgba(99,102,241,.13),rgba(168,85,247,.07));
+}
+.effect-summary-left{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  flex-wrap:wrap;
+}
+.effect-summary-icon{
+  width:23px;height:23px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;
+  background:rgba(168,85,247,.13);border:1px solid rgba(168,85,247,.22);font-size:12px;
+}
+.effect-summary-muted{
+  min-width:0;
+  color:var(--subtext);
+  font-size:10.5px;
+  font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.effect-summary-arrow{
+  flex:0 0 auto;
+  color:#a5b4fc;
+  font-size:19px;
+  line-height:1;
+}
+.effect-details{
+  margin-top:6px;
+  padding:7px;
+  border-radius:12px;
+  background:rgba(5,10,22,.52);
+  border:1px solid rgba(255,255,255,.06);
+}
+.effect-details-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:6px;
+}
+.effect-detail-item{
+  min-width:0;
+  padding:8px;
+  border-radius:9px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.065);
+}
+.effect-detail-item.empty{opacity:.72;}
+.effect-detail-head{display:flex;align-items:center;gap:7px;min-width:0;}
+.effect-detail-icon{
+  flex:0 0 auto;width:24px;height:24px;border-radius:7px;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:rgba(99,102,241,.10);border:1px solid rgba(99,102,241,.16);font-size:13px;
+}
+.effect-detail-title-wrap{min-width:0;display:flex;flex-direction:column;gap:2px;}
+.effect-detail-title-wrap b{font-size:10.5px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.effect-detail-title-wrap small{font-size:8.5px;color:var(--subtext);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.effect-detail-desc{margin-top:5px;font-size:9px;line-height:1.4;color:#cbd5e1;}
+
+@media(max-width:700px){
+  .effect-summary-card{margin-top:7px;min-height:34px;padding:6px 8px!important;border-radius:10px;}
+  .effect-summary-left{gap:5px;}
+  .effect-summary-icon{width:21px;height:21px;border-radius:6px;font-size:11px;}
+  .effect-summary-muted{font-size:9px;}
+  .effect-summary-arrow{font-size:17px;}
+  .effect-details{padding:6px;}
+  .effect-details-list{grid-template-columns:1fr;gap:5px;}
+  .effect-detail-item{padding:7px;}
+  .effect-detail-desc{font-size:8.8px;}
+}
